@@ -10,8 +10,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class AnotechDBHelper extends SQLiteOpenHelper {
 
-    public AnotechDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+
+    public static final String DB_NAME = "anotech.db";
+    private static final int DB_VERSION = 1;
+
+    public AnotechDBHelper(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
