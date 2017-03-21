@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/grey"
     android:orientation="horizontal">
 
     <ImageView
@@ -10,8 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/structure_item_padding_half"
-        android:layout_marginLeft="@dimen/structure_item_padding"
-        android:layout_marginStart="@dimen/structure_item_padding"
+        android:layout_marginLeft="@dimen/structure_item_padding_half"
+        android:layout_marginStart="@dimen/structure_item_padding_half"
         android:layout_marginTop="@dimen/structure_item_padding_half"
         android:src="@drawable/ic_navigate_next" />
 
@@ -24,7 +23,17 @@
         android:layout_marginTop="28dp"
         android:layout_toRightOf="@id/arrow"
         android:text="@string/table_name"
+        android:textSize="17sp"
         android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/name"
+        android:layout_marginTop="@dimen/structure_item_padding"
+        android:layout_marginLeft="@dimen/structure_item_padding"
+        android:background="@color/grey"
+        />
 
 
 </RelativeLayout>
