@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import com.webianks.anotech.adapters.ViewPagerAdapter;
 import com.webianks.anotech.fragments.AnomalousActivities;
 import com.webianks.anotech.fragments.DataStructure;
+import com.webianks.anotech.fragments.Testing;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new DataStructure(), "Structure");
         adapter.addFragment(new AnomalousActivities(), "Activities");
+        adapter.addFragment(new Testing(), "Testing");
         viewPager.setAdapter(adapter);
     }
 }
