@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.webianks.anotech.R;
+import com.webianks.anotech.adapters.StructureAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by R Ankit on 21-03-2017.
@@ -18,6 +22,7 @@ import com.webianks.anotech.R;
 public class DataStructure extends Fragment {
 
     private RecyclerView recyclerView;
+    private List<String> structureList = new ArrayList<String>();
 
     public static DataStructure newInstance() {
 
@@ -42,6 +47,19 @@ public class DataStructure extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
+
+
+        structureList.add("Employees");
+        structureList.add("Offices");
+        structureList.add("Products");
+        structureList.add("Product Lines");
+        structureList.add("Orders");
+        structureList.add("Order Details");
+        structureList.add("Customers");
+        structureList.add("Payments");
+
+        StructureAdapter adapter = new StructureAdapter(getActivity(),structureList);
+        recyclerView.setAdapter(adapter);
 
     }
 }
