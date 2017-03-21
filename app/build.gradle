@@ -27,6 +27,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.0'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:25.3.0'
+    compile 'com.github.myinnos:AppFontChanger:1.0'
 
     debugCompile 'com.amitshekhar.android:debug-db:1.0.0'
+
 }
