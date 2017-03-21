@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Anotech</string>
+    <string name="table_name">Administration</string>
+    <string name="tables_intro">This provides information on the various tables present in the database.</string>
 </resources>

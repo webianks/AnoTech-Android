@@ -3,6 +3,8 @@ package com.webianks.anotech.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import com.webianks.anotech.R;
  */
 
 public class DataStructure extends Fragment {
+
+    private RecyclerView recyclerView;
 
     public static DataStructure newInstance() {
 
@@ -27,6 +31,17 @@ public class DataStructure extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.data_structure,container,false);
+
+        View view = inflater.inflate(R.layout.data_structure,container,false);
+        init(view);
+        return view;
+    }
+
+    private void init(View view) {
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
+
     }
 }
