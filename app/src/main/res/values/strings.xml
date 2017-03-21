@@ -2,4 +2,6 @@
     <string name="app_name">Anotech</string>
     <string name="table_name">Administration</string>
     <string name="tables_intro">This provides information on the various tables present in the database.</string>
+    <string name="activity_happened">Outlier has occured in the</string>
+    <string name="target">OrderDetails</string>
 </resources>
