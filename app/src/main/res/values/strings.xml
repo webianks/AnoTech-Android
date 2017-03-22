@@ -5,4 +5,10 @@
     <string name="activity_happened">Outlier has occured in the</string>
     <string name="target">OrderDetails</string>
     <string name="anomaly_intro">Here you can select type of anomaly case you want to test.</string>
+    <string name="order_number">orderNumber</string>
+    <string name="product_code">productCode</string>
+    <string name="quantity_ordered">quantityOrdered</string>
+    <string name="order_line_numnber">orderLineNumber</string>
+    <string name="price_each">priceEach</string>
+    <string name="insert">INSERT</string>
 </resources>
