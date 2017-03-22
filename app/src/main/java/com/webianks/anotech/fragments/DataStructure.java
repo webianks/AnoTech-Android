@@ -1,5 +1,6 @@
 package com.webianks.anotech.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.webianks.anotech.R;
 import com.webianks.anotech.adapters.StructureAdapter;
+import com.webianks.anotech.screens.StructureViewer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ import java.util.List;
  * Created by R Ankit on 21-03-2017.
  */
 
-public class DataStructure extends Fragment {
+public class DataStructure extends Fragment implements StructureAdapter.ItemClickListener {
 
     private RecyclerView recyclerView;
     private List<String> structureList = new ArrayList<String>();
@@ -59,7 +61,13 @@ public class DataStructure extends Fragment {
         structureList.add("Payments");
 
         StructureAdapter adapter = new StructureAdapter(getActivity(),structureList);
+        adapter.setItemClickListener(this);
         recyclerView.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void itemClicked(int position) {
+        startActivity(new Intent(getActivity(),StructureViewer.class));
     }
 }

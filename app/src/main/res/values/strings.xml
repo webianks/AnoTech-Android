@@ -12,4 +12,5 @@
     <string name="price_each">priceEach</string>
     <string name="insert">INSERT</string>
     <string name="order_details">Order Details</string>
+    <string name="structure_viewer">Structure Viewer</string>
 </resources>

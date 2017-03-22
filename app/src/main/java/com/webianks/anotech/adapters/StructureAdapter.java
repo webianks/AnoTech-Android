@@ -20,6 +20,7 @@ public class StructureAdapter extends RecyclerView.Adapter<StructureAdapter.VH> 
 
     private List<String> tableNames;
     private Context context;
+    private ItemClickListener itemClickListener;
 
     public StructureAdapter(Context context, List<String> tableNames) {
         this.context = context;
@@ -39,19 +40,41 @@ public class StructureAdapter extends RecyclerView.Adapter<StructureAdapter.VH> 
         holder.tableName.setText(tableNames.get(position));
     }
 
+
+
+    public void setItemClickListener(ItemClickListener itemClickListener){
+        this.itemClickListener = itemClickListener;
+    }
+
+
     @Override
     public int getItemCount() {
         return tableNames.size();
     }
 
-    public class VH extends RecyclerView.ViewHolder {
+    class VH extends RecyclerView.ViewHolder {
 
         TextView tableName;
 
-        public VH(View itemView) {
+        VH(View itemView) {
             super(itemView);
 
             tableName = (TextView) itemView.findViewById(R.id.name);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (itemClickListener!=null)
+                        itemClickListener.itemClicked(getAdapterPosition());
+                }
+            });
         }
     }
+
+    public interface ItemClickListener{
+        void itemClicked(int position);
+    }
+
+
 }
