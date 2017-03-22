@@ -1,5 +1,6 @@
 package com.webianks.anotech.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.webianks.anotech.R;
 import com.webianks.anotech.adapters.TestingAdapter;
+import com.webianks.anotech.test_classes.OrderDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ import java.util.List;
  * Created by R Ankit on 21-03-2017.
  */
 
-public class Testing extends Fragment {
+public class Testing extends Fragment implements TestingAdapter.ItemClickListener {
 
     private RecyclerView testingRecyclerView;
     private List<String> testingList = new ArrayList<>();
@@ -58,6 +60,15 @@ public class Testing extends Fragment {
 
         TestingAdapter adapter = new TestingAdapter(getActivity(), testingList);
         testingRecyclerView.setAdapter(adapter);
+        adapter.setItemClickListener(this);
 
+    }
+
+    @Override
+    public void itemClicked(int position) {
+        if (testingList.get(position).equals("OrderDetail Anomaly")){
+
+            startActivity(new Intent(getActivity(), OrderDetails.class));
+        }
     }
 }

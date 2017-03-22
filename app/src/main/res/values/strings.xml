@@ -11,4 +11,5 @@
     <string name="order_line_numnber">orderLineNumber</string>
     <string name="price_each">priceEach</string>
     <string name="insert">INSERT</string>
+    <string name="order_details">Order Details</string>
 </resources>

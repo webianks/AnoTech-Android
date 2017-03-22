@@ -19,6 +19,7 @@ public class TestingAdapter extends RecyclerView.Adapter<TestingAdapter.VH> {
 
     private List<String> testNames;
     private Context context;
+    private ItemClickListener itemClickListener;
 
     public TestingAdapter(Context context, List<String> testNames) {
         this.context = context;
@@ -43,14 +44,31 @@ public class TestingAdapter extends RecyclerView.Adapter<TestingAdapter.VH> {
         return testNames.size();
     }
 
-    public class VH extends RecyclerView.ViewHolder {
+    public void setItemClickListener(ItemClickListener itemClickListener){
+        this.itemClickListener = itemClickListener;
+    }
+
+    class VH extends RecyclerView.ViewHolder {
 
         TextView tableName;
 
-        public VH(View itemView) {
+        VH(View itemView) {
             super(itemView);
 
             tableName = (TextView) itemView.findViewById(R.id.name);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (itemClickListener!=null)
+                        itemClickListener.itemClicked(getAdapterPosition());
+                }
+            });
         }
+    }
+
+    public interface ItemClickListener{
+        void itemClicked(int position);
     }
 }

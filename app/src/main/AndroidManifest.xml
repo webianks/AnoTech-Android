@@ -17,6 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".test_classes.OrderDetails"
+            android:label="@string/order_details"
+            />
     </application>
 
 </manifest>
