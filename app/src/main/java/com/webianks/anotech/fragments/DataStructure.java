@@ -39,7 +39,7 @@ public class DataStructure extends Fragment implements StructureAdapter.ItemClic
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.data_structure,container,false);
+        View view = inflater.inflate(R.layout.data_structure, container, false);
         init(view);
         return view;
     }
@@ -60,7 +60,7 @@ public class DataStructure extends Fragment implements StructureAdapter.ItemClic
         structureList.add("Customers");
         structureList.add("Payments");
 
-        StructureAdapter adapter = new StructureAdapter(getActivity(),structureList);
+        StructureAdapter adapter = new StructureAdapter(getActivity(), structureList);
         adapter.setItemClickListener(this);
         recyclerView.setAdapter(adapter);
 
@@ -68,6 +68,8 @@ public class DataStructure extends Fragment implements StructureAdapter.ItemClic
 
     @Override
     public void itemClicked(int position) {
-        startActivity(new Intent(getActivity(),StructureViewer.class));
+        Intent intent = new Intent(getActivity(), StructureViewer.class);
+        intent.putExtra("table_number", position);
+        startActivity(intent);
     }
 }

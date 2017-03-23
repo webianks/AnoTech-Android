@@ -29,6 +29,16 @@ public class StructureViewer extends AppCompatActivity {
 
     private RecyclerView tableRecyclerView;
 
+    private String tableNames[] = {
+            Contract.TABLE_EMPLOYEES,
+            Contract.TABLE_OFFICES,
+            Contract.TABLE_PRODUCTS,
+            Contract.TABLE_PRODUCT_LINES,
+            Contract.TABLE_ORDERS,
+            Contract.TABLE_ORDER_DETAILS,
+            Contract.TABLE_CUSTOMERS,
+            Contract.TABLE_PAYMENTS};
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +50,15 @@ public class StructureViewer extends AppCompatActivity {
     }
 
 
-    private void getColumns() {
+    private void getColumns(int tableNumber) {
 
         AnotechDBHelper anotechDBHelper = new AnotechDBHelper(this);
         SQLiteDatabase sqLiteDatabase = anotechDBHelper.getReadableDatabase();
 
 
-        Cursor dbCursor = sqLiteDatabase.query(Contract.TABLE_ORDER_DETAILS, null, null, null, null, null, null);
+        String tableName = tableNames[tableNumber];
+
+        Cursor dbCursor = sqLiteDatabase.query(tableName, null, null, null, null, null, null);
         String[] columnNames = dbCursor.getColumnNames();
 
       /*  int count = 0;
@@ -76,7 +88,9 @@ public class StructureViewer extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         tableRecyclerView.setLayoutManager(llm);
 
-        getColumns();
+        int tableNumber = getIntent().getIntExtra("table_number", 0);
+
+        getColumns(tableNumber);
 
     }
 
