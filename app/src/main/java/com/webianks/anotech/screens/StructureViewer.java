@@ -40,27 +40,30 @@ public class StructureViewer extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        getColumns();
-
-    }
-
     private void getColumns() {
 
         AnotechDBHelper anotechDBHelper = new AnotechDBHelper(this);
         SQLiteDatabase sqLiteDatabase = anotechDBHelper.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.query(Contract.TABLE_ORDER_DETAILS, Projections.ORDER_DETAILS_COLUMNS,
-                null, null, null, null, null);
 
-        int count = 0;
+
+        Cursor dbCursor = sqLiteDatabase.query(Contract.TABLE_ORDER_DETAILS, null, null, null, null, null, null);
+        String[] columnNames = dbCursor.getColumnNames();
+
+      /*  int count = 0;
         if (cursor != null)
-            count = cursor.getCount();
+            count = cursor.getCount();*/
+
+        setColumnNames(columnNames);
 
         //Toast.makeText(this, "Number of columns " + cursor.getCount(), Toast.LENGTH_LONG).show();
 
+    }
+
+    private void setColumnNames(String[] columnNames) {
+
+
+        TableViewerAdapter adapter = new TableViewerAdapter(columnNames, this);
+        tableRecyclerView.setAdapter(adapter);
     }
 
     private void init() {
@@ -73,14 +76,8 @@ public class StructureViewer extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         tableRecyclerView.setLayoutManager(llm);
 
-        setAttributes();
+        getColumns();
 
-    }
-
-    private void setAttributes() {
-
-        TableViewerAdapter adapter = new TableViewerAdapter(null, this);
-        tableRecyclerView.setAdapter(adapter);
     }
 
     @Override

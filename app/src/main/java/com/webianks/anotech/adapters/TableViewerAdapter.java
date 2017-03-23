@@ -17,10 +17,10 @@ import java.util.List;
 
 public class TableViewerAdapter extends RecyclerView.Adapter<TableViewerAdapter.VH> {
 
-    private List<TableAttribute> tableAttributes;
+    private String[] tableAttributes;
     private Context context;
 
-    public TableViewerAdapter(List<TableAttribute> tableAttributes, Context context) {
+    public TableViewerAdapter(String[] tableAttributes, Context context) {
         this.tableAttributes = tableAttributes;
         this.context = context;
     }
@@ -34,14 +34,14 @@ public class TableViewerAdapter extends RecyclerView.Adapter<TableViewerAdapter.
     @Override
     public void onBindViewHolder(TableViewerAdapter.VH holder, int position) {
 
-        holder.attributeName.setText(tableAttributes.get(position).getName());
-        holder.attributeType.setText(tableAttributes.get(position).getType());
+        holder.attributeName.setText(tableAttributes[position]);
+       // holder.attributeType.setText(tableAttributes.get(position).getType());
 
     }
 
     @Override
     public int getItemCount() {
-        return tableAttributes.size();
+        return tableAttributes.length;
     }
 
     class VH extends RecyclerView.ViewHolder {
