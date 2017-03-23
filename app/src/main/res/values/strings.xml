@@ -13,4 +13,7 @@
     <string name="insert">INSERT</string>
     <string name="order_details">Order Details</string>
     <string name="structure_viewer">Structure Viewer</string>
+    <string name="table_columns">Table Columns</string>
+    <string name="attribute_name">attributeName</string>
+    <string name="attribute_type"><![CDATA[<type>]]></string>
 </resources>

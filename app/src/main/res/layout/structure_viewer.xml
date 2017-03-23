@@ -12,4 +12,15 @@
         android:background="?attr/colorPrimary"
         app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/structure_item_padding"
+        android:text="@string/table_columns" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/tableRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>
