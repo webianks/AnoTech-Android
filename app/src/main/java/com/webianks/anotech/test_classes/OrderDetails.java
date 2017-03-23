@@ -1,5 +1,7 @@
 package com.webianks.anotech.test_classes;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -8,8 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.webianks.anotech.R;
+import com.webianks.anotech.database.AnotechDBHelper;
+import com.webianks.anotech.database.Contract;
 
 /**
  * Created by R Ankit on 22-03-2017.
@@ -64,12 +69,35 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        int order_line_number = Integer.valueOf(orderLineNumberET.getText().toString());
-        int order_number = Integer.valueOf(orderNumnberET.getText().toString());
-        int quantity_ordered = Integer.valueOf(quantityOrderedET.getText().toString());
-        int price_each = Integer.valueOf(priceEachET.getText().toString());
+        String order_line_number = orderLineNumberET.getText().toString();
+        String order_number = orderNumnberET.getText().toString();
+        String quantity_ordered = quantityOrderedET.getText().toString();
+        String price_each = priceEachET.getText().toString();
         String product_code = productCodeET.getText().toString();
 
+        if (order_line_number.trim().length() > 0 &&
+                order_number.trim().length() > 0 &&
+                quantity_ordered.trim().length() >0 &&
+                price_each.trim().length()>0 &&
+                product_code.trim().length()>0){
+
+
+            AnotechDBHelper dbHelper = new AnotechDBHelper(this);
+            SQLiteDatabase database = dbHelper.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(Contract.OrderDetailsEntry.ORDER_LINE_NUMBER,Integer.valueOf(order_line_number));
+            contentValues.put(Contract.OrderDetailsEntry.ORDER_NUMBER,Integer.valueOf(order_number));
+            contentValues.put(Contract.OrderDetailsEntry.QUANTITY_ORDERED,Integer.valueOf(quantity_ordered));
+            contentValues.put(Contract.OrderDetailsEntry.PRICE_EACH,Integer.valueOf(price_each));
+            contentValues.put(Contract.OrderDetailsEntry.PRODUCT_CODE,product_code);
+
+            long code = database.insert(Contract.TABLE_ORDER_DETAILS,null,contentValues);
+
+            if (code > 0)
+               Toast.makeText(this,getString(R.string.done),Toast.LENGTH_LONG).show();
+
+        }
 
     }
 }

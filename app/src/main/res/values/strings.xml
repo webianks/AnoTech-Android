@@ -16,4 +16,5 @@
     <string name="table_columns">Table Columns</string>
     <string name="attribute_name">attributeName</string>
     <string name="attribute_type"><![CDATA[<type>]]></string>
+    <string name="done">Insert successful.</string>
 </resources>
