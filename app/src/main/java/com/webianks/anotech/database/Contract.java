@@ -33,6 +33,7 @@ public class Contract {
 
 
         public static final String QUANTITY_IN_STOCK = "quantityInStock";
+        public static final String PRODUCT_CODE = "productCode";
 
     }
 

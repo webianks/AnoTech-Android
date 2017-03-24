@@ -87,16 +87,18 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
                 null, null, null, null, null);
 
 
-        if (cursor.moveToFirst()) {
+        boolean found = false;
 
+        while (cursor.moveToNext()) {
 
             int product_code_index = cursor.getColumnIndex(Contract.OrderDetailsEntry.PRODUCT_CODE);
             int quantity_ordered_index = cursor.getColumnIndex(Contract.OrderDetailsEntry.QUANTITY_ORDERED);
             String product_code = cursor.getString(product_code_index);
             int quantityOrdered = cursor.getInt(quantity_ordered_index);
 
-            String[] selectionArgs = {Contract.ProductsEntry.QUANTITY_IN_STOCK};
-            String selection = "";
+            String[] selectionArgs = {product_code};
+            String selection = Contract.TABLE_PRODUCTS +
+                    "." + Contract.ProductsEntry.PRODUCT_CODE + " = ? ";
 
             Cursor quantityInStockCursor = database.query(Contract.TABLE_PRODUCTS, null, selection, selectionArgs, null, null, null);
 
@@ -105,12 +107,17 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
                 int quantity_in_stock_index = quantityInStockCursor.getColumnIndex(Contract.ProductsEntry.QUANTITY_IN_STOCK);
                 int quantityInStock = quantityInStockCursor.getInt(quantity_in_stock_index);
 
-                if (quantityOrdered > quantityInStock)
+                if (quantityOrdered > quantityInStock) {
                     Toast.makeText(this, "Anomalous Tuple found.", Toast.LENGTH_LONG).show();
+                    found = true;
+                }
+
 
             }
 
         }
+        if (!found)
+            Toast.makeText(this, "Data looks good.", Toast.LENGTH_LONG).show();
 
     }
 
