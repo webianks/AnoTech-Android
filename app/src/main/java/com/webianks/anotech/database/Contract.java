@@ -31,9 +31,16 @@ public class Contract {
 
     public static final class ProductsEntry implements BaseColumns {
 
-
         public static final String QUANTITY_IN_STOCK = "quantityInStock";
         public static final String PRODUCT_CODE = "productCode";
+
+    }
+
+    public static final class OrdersEntry implements BaseColumns {
+
+        public static final String ORDER_DATE = "orderDate";
+        public static final String SHIPPED_DATE = "shippedDate";
+        public static final String ORDER_NUMBER = "orderNumber";
 
     }
 

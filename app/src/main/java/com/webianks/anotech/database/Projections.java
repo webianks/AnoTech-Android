@@ -6,7 +6,6 @@ package com.webianks.anotech.database;
 
 public class Projections {
 
-
     public static final String[] ORDER_DETAILS_COLUMNS = {
 
             Contract.OrderDetailsEntry.ORDER_NUMBER,
@@ -14,7 +13,6 @@ public class Projections {
             Contract.OrderDetailsEntry.QUANTITY_ORDERED,
             Contract.OrderDetailsEntry.PRICE_EACH,
             Contract.OrderDetailsEntry.ORDER_LINE_NUMBER
-
     };
 
 }
