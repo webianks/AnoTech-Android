@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.webianks.anotech.R;
 import com.webianks.anotech.adapters.TestingAdapter;
 import com.webianks.anotech.test_classes.OrderDetails;
+import com.webianks.anotech.test_classes.Orders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,7 @@ public class Testing extends Fragment implements TestingAdapter.ItemClickListene
 
 
         testingList.add("OrderDetail Anomaly");
-        testingList.add("Another Anomaly");
+        testingList.add("Orders Anomaly");
         testingList.add("Another Anomaly");
         testingList.add("Another Anomaly");
         testingList.add("Another Anomaly");
@@ -66,9 +67,10 @@ public class Testing extends Fragment implements TestingAdapter.ItemClickListene
 
     @Override
     public void itemClicked(int position) {
-        if (testingList.get(position).equals("OrderDetail Anomaly")){
 
+        if (testingList.get(position).equals("OrderDetail Anomaly"))
             startActivity(new Intent(getActivity(), OrderDetails.class));
-        }
+        else if(testingList.get(position).equals("Orders Anomaly"))
+            startActivity(new Intent(getActivity(), Orders.class));
     }
 }

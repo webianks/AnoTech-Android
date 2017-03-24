@@ -21,7 +21,9 @@
         <activity
             android:name=".test_classes.OrderDetails"
             android:label="@string/order_details" />
-
+        <activity
+            android:name=".test_classes.Orders"
+            android:label="@string/orders" />
 
         <activity
             android:name=".screens.StructureViewer"

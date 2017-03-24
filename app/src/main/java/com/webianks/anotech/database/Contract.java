@@ -20,7 +20,6 @@ public class Contract {
 
     public static final class OrderDetailsEntry implements BaseColumns {
 
-
         public static final String ORDER_NUMBER = "orderNumber";
         public static final String PRODUCT_CODE = "productCode";
         public static final String QUANTITY_ORDERED = "quantityOrdered";

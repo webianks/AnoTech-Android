@@ -18,4 +18,5 @@
     <string name="attribute_type"><![CDATA[<type>]]></string>
     <string name="done">Insert successful.</string>
     <string name="run_test">RUN TEST</string>
+    <string name="orders">Orders</string>
 </resources>
