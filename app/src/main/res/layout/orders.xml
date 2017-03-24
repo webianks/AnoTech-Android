@@ -46,10 +46,10 @@
                 android:layout_marginRight="@dimen/structure_item_padding">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/productCode"
+                    android:id="@+id/orderDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/product_code"
+                    android:hint="@string/order_date"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
@@ -63,10 +63,10 @@
                 android:layout_marginRight="@dimen/structure_item_padding">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/quantityOrdered"
+                    android:id="@+id/requiredDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/quantity_ordered"
+                    android:hint="@string/required_date"
                     android:inputType="number" />
 
             </android.support.design.widget.TextInputLayout>
@@ -80,10 +80,10 @@
                 android:layout_marginRight="@dimen/structure_item_padding">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/priceEach"
+                    android:id="@+id/shippedDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/price_each"
+                    android:hint="@string/shipped_date"
                     android:inputType="number" />
 
             </android.support.design.widget.TextInputLayout>
@@ -97,10 +97,42 @@
                 android:layout_marginRight="@dimen/structure_item_padding">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/orderLineNumber"
+                    android:id="@+id/status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/order_line_numnber"
+                    android:hint="@string/status"
+                    android:inputType="number" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/structure_item_padding_half"
+                android:layout_marginLeft="@dimen/structure_item_padding"
+                android:layout_marginRight="@dimen/structure_item_padding">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/comments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/comments"
+                    android:inputType="number" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/structure_item_padding_half"
+                android:layout_marginLeft="@dimen/structure_item_padding"
+                android:layout_marginRight="@dimen/structure_item_padding">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/customerNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/customer_number"
                     android:inputType="number" />
 
             </android.support.design.widget.TextInputLayout>

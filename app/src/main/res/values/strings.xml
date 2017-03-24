@@ -19,4 +19,10 @@
     <string name="done">Insert successful.</string>
     <string name="run_test">RUN TEST</string>
     <string name="orders">Orders</string>
+    <string name="order_date">orderDate</string>
+    <string name="required_date">requiredDate</string>
+    <string name="shipped_date">shippedDate</string>
+    <string name="status">status</string>
+    <string name="comments">comments</string>
+    <string name="customer_number">customerNumber</string>
 </resources>
