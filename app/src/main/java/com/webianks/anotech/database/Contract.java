@@ -29,5 +29,12 @@ public class Contract {
 
     }
 
+    public static final class ProductsEntry implements BaseColumns {
+
+
+        public static final String QUANTITY_IN_STOCK = "quantityInStock";
+
+    }
+
 
 }
