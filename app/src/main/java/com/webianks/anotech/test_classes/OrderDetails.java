@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -96,6 +97,8 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             String product_code = cursor.getString(product_code_index);
             int quantityOrdered = cursor.getInt(quantity_ordered_index);
 
+            Log.d(OrderDetails.class.getSimpleName(),"QuantityOrdered " +quantityOrdered);
+
             String[] selectionArgs = {product_code};
             String selection = Contract.TABLE_PRODUCTS +
                     "." + Contract.ProductsEntry.PRODUCT_CODE + " = ? ";
@@ -107,15 +110,20 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
                 int quantity_in_stock_index = quantityInStockCursor.getColumnIndex(Contract.ProductsEntry.QUANTITY_IN_STOCK);
                 int quantityInStock = quantityInStockCursor.getInt(quantity_in_stock_index);
 
+                Log.d(OrderDetails.class.getSimpleName(),"QuantityInStock " +quantityInStock);
+
                 if (quantityOrdered > quantityInStock) {
-                    Toast.makeText(this, "Anomalous Tuple found.", Toast.LENGTH_LONG).show();
+                    Log.d(OrderDetails.class.getSimpleName(), "Anomalous Tuple found.");
                     found = true;
                 }
 
-
             }
+            quantityInStockCursor.close();
 
         }
+
+        cursor.close();
+
         if (!found)
             Toast.makeText(this, "Data looks good.", Toast.LENGTH_LONG).show();
 
