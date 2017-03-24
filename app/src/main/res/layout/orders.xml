@@ -50,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/order_date"
-                    android:inputType="text" />
+                    android:inputType="date" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -67,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/required_date"
-                    android:inputType="number" />
+                    android:inputType="date" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -84,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/shipped_date"
-                    android:inputType="number" />
+                    android:inputType="date" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -101,7 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/status"
-                    android:inputType="number" />
+                    android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -117,7 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/comments"
-                    android:inputType="number" />
+                    android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
 
