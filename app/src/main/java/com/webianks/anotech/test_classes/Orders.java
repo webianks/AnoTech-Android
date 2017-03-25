@@ -1,6 +1,7 @@
 package com.webianks.anotech.test_classes;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.webianks.anotech.R;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
+import com.webianks.anotech.database.Projections;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -70,8 +72,34 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         if (view.getId() == R.id.insert)
             insertNow();
-        //else
-        //runCheck();
+        else
+            runCheck();
+    }
+
+
+    private void runCheck() {
+
+        AnotechDBHelper dbHelper = new AnotechDBHelper(this);
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+/*
+
+        String query = "SELECT orderNumber, datediff(shippedDate,orderDate) FROM " + Contract.TABLE_ORDERS + "WHERE " +
+                "NOT shippedDate ='' AND orderNumber != 10165;";
+
+        database.execSQL(query);
+*/
+
+        String[] selectionArgs = {"10165"};
+
+        String selection = Contract.TABLE_ORDERS +
+                "." + Contract.OrdersEntry.ORDER_NUMBER + " != ? ";
+
+        Cursor cursor = database.query(Contract.TABLE_ORDERS, Projections.ORDERS_COLUMNS,
+                selection, selectionArgs, null, null, null);
+
+        Log.d(Orders.class.getSimpleName()," "+cursor.getCount());
+
+
     }
 
 

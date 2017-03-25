@@ -15,4 +15,11 @@ public class Projections {
             Contract.OrderDetailsEntry.ORDER_LINE_NUMBER
     };
 
+    public static final String[] ORDERS_COLUMNS = {
+
+            Contract.OrdersEntry.ORDER_NUMBER,
+            Contract.OrdersEntry.SHIPPED_DATE,
+            Contract.OrdersEntry.ORDER_DATE
+    };
+
 }
