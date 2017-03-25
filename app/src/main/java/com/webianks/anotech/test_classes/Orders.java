@@ -1,15 +1,24 @@
 package com.webianks.anotech.test_classes;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.webianks.anotech.R;
 import com.webianks.anotech.database.AnotechDBHelper;
+import com.webianks.anotech.database.Contract;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by R Ankit on 24-03-2017.
@@ -81,13 +90,31 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
                 required_date.trim().length() > 0 &&
                 shipped_date.trim().length() > 0 &&
                 status.trim().length() > 0 &&
-                comment.trim().length() > 0 &&
                 customer_number.trim().length() > 0
                 ) {
 
 
             AnotechDBHelper dbHelper = new AnotechDBHelper(this);
             SQLiteDatabase database = dbHelper.getWritableDatabase();
+
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(Contract.OrdersEntry.ORDER_NUMBER, Integer.valueOf(order_number));
+            contentValues.put(Contract.OrdersEntry.ORDER_DATE, order_date);
+            contentValues.put(Contract.OrdersEntry.REQUIRED_DATE, required_date);
+            contentValues.put(Contract.OrdersEntry.SHIPPED_DATE, shipped_date);
+            contentValues.put(Contract.OrdersEntry.STATUS, status);
+            contentValues.put(Contract.OrdersEntry.COMMENTS, comment);
+            contentValues.put(Contract.OrdersEntry.CUSTOMER_NUMBER, customer_number);
+
+            long code = database.insert(Contract.TABLE_ORDERS, null, contentValues);
+
+            if (code > 0)
+                Toast.makeText(this, getString(R.string.done), Toast.LENGTH_LONG).show();
+            else
+                Log.d(Orders.class.getSimpleName(), "insertNow: " + code);
+
+            database.close();
 
         }
 

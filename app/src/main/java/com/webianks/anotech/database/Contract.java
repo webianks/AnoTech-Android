@@ -40,6 +40,10 @@ public class Contract {
         public static final String ORDER_DATE = "orderDate";
         public static final String SHIPPED_DATE = "shippedDate";
         public static final String ORDER_NUMBER = "orderNumber";
+        public static final String REQUIRED_DATE = "requiredDate";
+        public static final String STATUS = "status";
+        public static final String COMMENTS = "comments";
+        public static final String CUSTOMER_NUMBER = "customerNumber";
 
     }
 
