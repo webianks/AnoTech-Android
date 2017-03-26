@@ -14,7 +14,7 @@ public class AnotechDBHelper extends SQLiteOpenHelper {
 
 
     public static final String DB_NAME = "anotech.db";
-    private static final int DB_VERSION = 14;
+    private static final int DB_VERSION = 19;
     private Context context;
 
     public AnotechDBHelper(Context context) {
@@ -25,7 +25,7 @@ public class AnotechDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-
+        //create tables
         sqLiteDatabase.execSQL(context.getString(R.string.create_table_customer));
         sqLiteDatabase.execSQL(context.getString(R.string.create_employees));
         sqLiteDatabase.execSQL(context.getString(R.string.create_offices));
@@ -35,7 +35,9 @@ public class AnotechDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(context.getString(R.string.create_product_lines));
         sqLiteDatabase.execSQL(context.getString(R.string.create_products));
 
-        //sqLiteDatabase.execSQL("ALTER TABLE offices ADD PRIMARY KEY(officeCode);");
+        //insert_into_tables
+        sqLiteDatabase.execSQL(context.getString(R.string.insert_customers));
+
 
     }
 
