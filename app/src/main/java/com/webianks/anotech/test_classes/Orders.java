@@ -21,7 +21,9 @@ import com.webianks.anotech.database.Contract;
 import com.webianks.anotech.database.Projections;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 /**
@@ -93,8 +95,8 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
         Cursor cursor = database.query(Contract.TABLE_ORDERS, Projections.ORDERS_COLUMNS,
                 selection, selectionArgs, null, null, null);
 
-        SimpleDateFormat myFormat = new SimpleDateFormat("YYYY-MM-DD");
         StringBuilder stringBuilder = new StringBuilder();
+        List<Long> listOfDays = new ArrayList<>();
 
         while (cursor.moveToNext()) {
 
@@ -121,6 +123,7 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
             long diff = calender2.getTimeInMillis() - calender.getTimeInMillis();
             long days = diff / (24 * 60 * 60 * 1000);
+            listOfDays.add(days);
 
             //Log.d(Orders.class.getSimpleName(),"OrderNumber: "+orderNumber+" -- Days: " + days);
 
@@ -131,6 +134,31 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
         FileUtils.createOutputFile();
         if (FileUtils.writeOutputFile(stringBuilder.toString()))
             Log.d(Orders.class.getSimpleName(), "Writing csv file done.");
+
+
+        double sd = 0;
+        double sum = 0;
+
+        for (int i = 0; i < listOfDays.size(); i++)
+            sum = sum + listOfDays.get(i);
+
+        double average = sum / listOfDays.size();
+
+        System.out.println("Average value is : " + average);
+
+        for (int i = 0; i < listOfDays.size(); i++) {
+            double difference = listOfDays.get(i) - average;
+            sd += (difference * difference) / listOfDays.size();
+        }
+
+        double standardDeviation = Math.sqrt(sd);
+
+        System.out.println("Std Devation is: " + standardDeviation);
+
+        int allowedDays = (int) Math.ceil(standardDeviation + average);
+
+        System.out.println("Non anomalous days count: " + allowedDays);
+
 
         Log.d(Orders.class.getSimpleName(), " " + cursor.getCount());
 
