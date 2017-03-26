@@ -20,16 +20,9 @@ import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
 import com.webianks.anotech.database.Projections;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
+
 
 /**
  * Created by R Ankit on 24-03-2017.
@@ -137,7 +130,7 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
             if (FileUtils.writeOutputFile(stringBuilder.toString()))
                 Log.d(Orders.class.getSimpleName(), "Writing csv file done.");
-            
+
         }
 
         Log.d(Orders.class.getSimpleName(), " " + cursor.getCount());
