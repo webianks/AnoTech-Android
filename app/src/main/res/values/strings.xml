@@ -100,25 +100,29 @@ CREATE TABLE `customers` (
 
     <string name="create_orders">
 
-        CREATE TABLE `orders` (
+  CREATE TABLE `orders` (
   `orderNumber` int(11) NOT NULL,
   `orderDate` date NOT NULL,
   `requiredDate` date NOT NULL,
   `shippedDate` date DEFAULT NULL,
   `status` varchar(15) NOT NULL,
   `comments` text,
-  `customerNumber` int(11) NOT NULL
+  `customerNumber` int(11) NOT NULL,
+  PRIMARY KEY (`orderNumber`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customerNumber`) REFERENCES `customers` (`customerNumber`)
 );
 
     </string>
 
     <string name="create_payments">
 
-        CREATE TABLE `payments` (
+     CREATE TABLE `payments` (
   `customerNumber` int(11) NOT NULL,
   `checkNumber` varchar(50) NOT NULL,
   `paymentDate` date NOT NULL,
-  `amount` decimal(10,2) NOT NULL
+  `amount` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`customerNumber`,`checkNumber`),
+  CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`customerNumber`) REFERENCES `customers` (`customerNumber`)
 );
 
     </string>
