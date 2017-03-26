@@ -31,6 +31,10 @@
             android:name=".screens.StructureViewer"
             android:label="@string/structure_viewer" />
 
+        <activity
+            android:name=".screens.ScatterChartActivity"
+            android:label="" />
+
     </application>
 
 </manifest>

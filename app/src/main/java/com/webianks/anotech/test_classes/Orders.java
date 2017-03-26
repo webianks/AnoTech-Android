@@ -2,6 +2,7 @@ package com.webianks.anotech.test_classes;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.webianks.anotech.R;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
 import com.webianks.anotech.database.Projections;
+import com.webianks.anotech.screens.ScatterChartActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -160,6 +162,8 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
 
         Log.d(Orders.class.getSimpleName(), " " + cursor.getCount());
+
+        startActivity(new Intent(this, ScatterChartActivity.class));
 
     }
 
