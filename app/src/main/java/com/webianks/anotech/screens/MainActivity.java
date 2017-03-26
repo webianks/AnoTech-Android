@@ -38,34 +38,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillDatabase() {
-
         AnotechDBHelper anotechDBHelper = new AnotechDBHelper(this);
         SQLiteDatabase database = anotechDBHelper.getWritableDatabase();
-
-        database.execSQL("DROP TABLE IF EXISTS customers");
-        database.execSQL(getString(R.string.create_table_customer));
-
-        database.execSQL("DROP TABLE IF EXISTS employees");
-        database.execSQL(getString(R.string.create_employees));
-
-        database.execSQL("DROP TABLE IF EXISTS offices");
-        database.execSQL(getString(R.string.create_offices));
-
-        database.execSQL("DROP TABLE IF EXISTS orderdetails");
-        database.execSQL(getString(R.string.create_order_Details));
-
-        database.execSQL("DROP TABLE IF EXISTS orders");
-        database.execSQL(getString(R.string.create_orders));
-
-        database.execSQL("DROP TABLE IF EXISTS payments");
-        database.execSQL(getString(R.string.create_payments));
-
-        database.execSQL("DROP TABLE IF EXISTS productlines");
-        database.execSQL(getString(R.string.create_product_lines));
-
-        database.execSQL("DROP TABLE IF EXISTS products");
-        database.execSQL(getString(R.string.create_products));
-
     }
 
     private void setupViewPager(ViewPager viewPager) {

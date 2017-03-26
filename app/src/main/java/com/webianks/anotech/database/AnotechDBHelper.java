@@ -14,20 +14,42 @@ public class AnotechDBHelper extends SQLiteOpenHelper {
 
 
     public static final String DB_NAME = "anotech.db";
-    private static final int DB_VERSION = 6;
+    private static final int DB_VERSION = 9;
+    private Context context;
 
     public AnotechDBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
+        this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        //sqLiteDatabase.execSQL(R.string.create_table_customer);
+
+
+        sqLiteDatabase.execSQL(context.getString(R.string.create_table_customer));
+        sqLiteDatabase.execSQL(context.getString(R.string.create_employees));
+        sqLiteDatabase.execSQL(context.getString(R.string.create_offices));
+        sqLiteDatabase.execSQL(context.getString(R.string.create_order_Details));
+        sqLiteDatabase.execSQL(context.getString(R.string.create_orders));
+        sqLiteDatabase.execSQL(context.getString(R.string.create_payments));
+        sqLiteDatabase.execSQL(context.getString(R.string.create_product_lines));
+        sqLiteDatabase.execSQL(context.getString(R.string.create_products));
+
+        //sqLiteDatabase.execSQL("ALTER TABLE offices ADD PRIMARY KEY(officeCode);");
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        //sqLiteDatabase.execSQL("DROP TABLE IF EXISTS customers");
+
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS customers");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS employees");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS offices");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS orderdetails");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS orders");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS payments");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS productlines");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS products");
         onCreate(sqLiteDatabase);
     }
 }

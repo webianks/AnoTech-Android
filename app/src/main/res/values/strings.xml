@@ -42,13 +42,15 @@ CREATE TABLE `customers` (
   `postalCode` varchar(15) DEFAULT NULL,
   `country` varchar(50) NOT NULL,
   `salesRepEmployeeNumber` int(11) DEFAULT NULL,
-  `creditLimit` decimal(10,2) DEFAULT NULL
+  `creditLimit` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`customerNumber`),
+  CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`salesRepEmployeeNumber`) REFERENCES `employees` (`employeeNumber`)
 );
     </string>
 
     <string name="create_employees">
 
-        CREATE TABLE `employees` (
+      CREATE TABLE `employees` (
   `employeeNumber` int(11) NOT NULL,
   `lastName` varchar(50) NOT NULL,
   `firstName` varchar(50) NOT NULL,
@@ -56,9 +58,11 @@ CREATE TABLE `customers` (
   `email` varchar(100) NOT NULL,
   `officeCode` varchar(10) NOT NULL,
   `reportsTo` int(11) DEFAULT NULL,
-  `jobTitle` varchar(50) NOT NULL
+  `jobTitle` varchar(50) NOT NULL,
+  PRIMARY KEY (`employeeNumber`),
+  CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`reportsTo`) REFERENCES `employees` (`employeeNumber`),
+  CONSTRAINT `employees_ibfk_2` FOREIGN KEY (`officeCode`) REFERENCES `offices` (`officeCode`)
 );
-
     </string>
 
     <string name="create_offices">
