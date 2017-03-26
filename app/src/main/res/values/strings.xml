@@ -78,4 +78,17 @@ CREATE TABLE `customers` (
     </string>
 
 
+    <string name="create_order_Details">
+
+        CREATE TABLE `orderdetails` (
+  `orderNumber` int(11) NOT NULL,
+  `productCode` varchar(15) NOT NULL,
+  `quantityOrdered` int(11) NOT NULL,
+  `priceEach` decimal(10,2) NOT NULL,
+  `orderLineNumber` smallint(6) NOT NULL
+);
+
+    </string>
+
+
 </resources>
