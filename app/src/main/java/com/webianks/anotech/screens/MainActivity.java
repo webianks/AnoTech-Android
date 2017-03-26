@@ -52,7 +52,10 @@ public class MainActivity extends AppCompatActivity {
         database.execSQL(getString(R.string.create_offices));
 
         database.execSQL("DROP TABLE IF EXISTS orderdetails");
-        database.execSQL(getString(R.string.order_details));
+        database.execSQL(getString(R.string.create_order_Details));
+
+        database.execSQL("DROP TABLE IF EXISTS orders");
+        database.execSQL(getString(R.string.create_orders));
 
 
     }

@@ -90,5 +90,19 @@ CREATE TABLE `customers` (
 
     </string>
 
+    <string name="create_orders">
+
+        CREATE TABLE `orders` (
+  `orderNumber` int(11) NOT NULL,
+  `orderDate` date NOT NULL,
+  `requiredDate` date NOT NULL,
+  `shippedDate` date DEFAULT NULL,
+  `status` varchar(15) NOT NULL,
+  `comments` text,
+  `customerNumber` int(11) NOT NULL
+);
+
+    </string>
+
 
 </resources>
