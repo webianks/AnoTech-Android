@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         database.execSQL("DROP TABLE IF EXISTS employees");
         database.execSQL(getString(R.string.create_employees));
 
+        database.execSQL("DROP TABLE IF EXISTS offices");
+        database.execSQL(getString(R.string.create_offices));
 
 
     }
