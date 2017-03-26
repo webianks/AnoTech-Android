@@ -130,19 +130,20 @@ CREATE TABLE `customers` (
 
     <string name="create_product_lines">
 
-        CREATE TABLE `productlines` (
+     CREATE TABLE `productlines` (
   `productLine` varchar(50) NOT NULL,
   `textDescription` varchar(4000) DEFAULT NULL,
   `htmlDescription` mediumtext,
-  `image` mediumblob
+  `image` mediumblob,
+  PRIMARY KEY (`productLine`)
 );
+
 
     </string>
 
     <string name="create_products">
 
-
-        CREATE TABLE `products` (
+    CREATE TABLE `products` (
   `productCode` varchar(15) NOT NULL,
   `productName` varchar(70) NOT NULL,
   `productLine` varchar(50) NOT NULL,
@@ -151,7 +152,9 @@ CREATE TABLE `customers` (
   `productDescription` text NOT NULL,
   `quantityInStock` smallint(6) NOT NULL,
   `buyPrice` decimal(10,2) NOT NULL,
-  `MSRP` decimal(10,2) NOT NULL
+  `MSRP` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`productCode`),
+  CONSTRAINT `products_ibfk_1` FOREIGN KEY (`productLine`) REFERENCES `productlines` (`productLine`)
 );
 
     </string>
