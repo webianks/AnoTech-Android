@@ -14,7 +14,7 @@ public class AnotechDBHelper extends SQLiteOpenHelper {
 
 
     public static final String DB_NAME = "anotech.db";
-    private static final int DB_VERSION = 19;
+    private static final int DB_VERSION = 24;
     private Context context;
 
     public AnotechDBHelper(Context context) {
@@ -37,6 +37,11 @@ public class AnotechDBHelper extends SQLiteOpenHelper {
 
         //insert_into_tables
         sqLiteDatabase.execSQL(context.getString(R.string.insert_customers));
+        sqLiteDatabase.execSQL(context.getString(R.string.insert_employees));
+        sqLiteDatabase.execSQL(context.getString(R.string.insert_offices));
+        sqLiteDatabase.execSQL(context.getString(R.string.insert_order_details));
+        sqLiteDatabase.execSQL(context.getString(R.string.insert_order_details_two));
+        sqLiteDatabase.execSQL(context.getString(R.string.insert_order_details_three));
 
 
     }
