@@ -116,4 +116,16 @@ CREATE TABLE `customers` (
     </string>
 
 
+    <string name="create_product_lines">
+
+        CREATE TABLE `productlines` (
+  `productLine` varchar(50) NOT NULL,
+  `textDescription` varchar(4000) DEFAULT NULL,
+  `htmlDescription` mediumtext,
+  `image` mediumblob
+);
+
+    </string>
+
+
 </resources>
