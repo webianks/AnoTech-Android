@@ -42,21 +42,21 @@ public class FileUtils {
         return success;
     }
 
-    public static void createOutputFile(){
+    public static void createOutputFile() {
 
         File root = new File(Environment.getExternalStorageDirectory(), "Anotech");
         if (!root.exists()) {
             root.mkdirs();
         }
-        filepath = new File(root,"orders_date_difference.csv");
+        filepath = new File(root, "orders_date_difference.csv");
     }
 
-    public static void deleteFile(){
+    public static void deleteFile() {
 
-        if (filepath!=null){
+        if (filepath != null) {
             boolean deleted = filepath.delete();
             if (deleted)
-                Log.d("webi","Deleted older file.");
+                Log.d("webi", "Deleted older file.");
         }
     }
 

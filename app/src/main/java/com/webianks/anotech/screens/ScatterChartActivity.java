@@ -4,17 +4,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-
 import com.github.mikephil.charting.charts.ScatterChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.webianks.anotech.R;
 
 import java.io.BufferedReader;
@@ -44,7 +37,7 @@ public class ScatterChartActivity extends AppCompatActivity {
         File root = new File(Environment.getExternalStorageDirectory(), "Anotech");
         File filepath = new File(root, "orders_date_difference.csv");
         ArrayList<Entry> entries = new ArrayList<>();
-
+        ArrayList<String> labels = new ArrayList<String>();
         try {
             BufferedReader br = new BufferedReader(new FileReader(filepath));
             String line;
@@ -54,8 +47,10 @@ public class ScatterChartActivity extends AppCompatActivity {
 
                 String[] splittedLine = line.split(",");
 
-                if (splittedLine.length == 2 && Integer.valueOf(splittedLine[1]) > 0)
-                    entries.add(new Entry(Integer.valueOf(splittedLine[1]), i++));
+                if (splittedLine.length == 2 && Integer.valueOf(splittedLine[1]) > 0){
+                    entries.add(new Entry(Float.valueOf(splittedLine[1]), i++));
+                    labels.add(splittedLine[0]);
+                }
 
             }
             br.close();
@@ -66,18 +61,6 @@ public class ScatterChartActivity extends AppCompatActivity {
 
         ScatterDataSet dataset = new ScatterDataSet(entries, "# of days");
         dataset.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
-
-        ArrayList<String> labels = new ArrayList<String>();
-        labels.add("0");
-        labels.add("1");
-        labels.add("2");
-        labels.add("3");
-        labels.add("4");
-        labels.add("5");
-        labels.add("6");
-        labels.add("7");
-        labels.add("8");
-        labels.add("9");
 
         ScatterData data = new ScatterData(labels, dataset);
         mChart.setData(data);

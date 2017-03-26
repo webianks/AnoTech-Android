@@ -24,7 +24,10 @@ import com.webianks.anotech.screens.ScatterChartActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -98,6 +101,7 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
         StringBuilder stringBuilder = new StringBuilder();
         List<Long> listOfDays = new ArrayList<>();
+        Map<Long, String> map = new HashMap<>();
 
         while (cursor.moveToNext()) {
 
@@ -129,6 +133,7 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
             //Log.d(Orders.class.getSimpleName(),"OrderNumber: "+orderNumber+" -- Days: " + days);
 
             stringBuilder.append(orderNumber + "," + days + "\n");
+            map.put(days, orderNumber);
 
         }
 
@@ -160,6 +165,14 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
         System.out.println("Non anomalous days count: " + allowedDays);
 
+
+        Iterator it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            if ((long) pair.getKey() > allowedDays)
+                Log.d(Orders.class.getSimpleName(), "Order shipping anomaly in order: " + pair.getValue() + " with days: " + pair.getKey());
+
+        }
 
         Log.d(Orders.class.getSimpleName(), " " + cursor.getCount());
 
