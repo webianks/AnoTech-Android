@@ -126,12 +126,11 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
             stringBuilder.append(orderNumber + "," + days + "\n");
 
-            FileUtils.createOutputFile();
-
-            if (FileUtils.writeOutputFile(stringBuilder.toString()))
-                Log.d(Orders.class.getSimpleName(), "Writing csv file done.");
-
         }
+
+        FileUtils.createOutputFile();
+        if (FileUtils.writeOutputFile(stringBuilder.toString()))
+            Log.d(Orders.class.getSimpleName(), "Writing csv file done.");
 
         Log.d(Orders.class.getSimpleName(), " " + cursor.getCount());
 
