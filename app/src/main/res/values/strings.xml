@@ -78,19 +78,22 @@ CREATE TABLE `customers` (
   `postalCode` varchar(15) NOT NULL,
   `territory` varchar(10) NOT NULL,
   PRIMARY KEY (`officeCode`)
-) ;
+);
 
     </string>
 
 
     <string name="create_order_Details">
 
-        CREATE TABLE `orderdetails` (
+    CREATE TABLE `orderdetails` (
   `orderNumber` int(11) NOT NULL,
   `productCode` varchar(15) NOT NULL,
   `quantityOrdered` int(11) NOT NULL,
   `priceEach` decimal(10,2) NOT NULL,
-  `orderLineNumber` smallint(6) NOT NULL
+  `orderLineNumber` smallint(6) NOT NULL,
+  PRIMARY KEY (`orderNumber`,`productCode`),
+  CONSTRAINT `orderdetails_ibfk_1` FOREIGN KEY (`orderNumber`) REFERENCES `orders` (`orderNumber`),
+  CONSTRAINT `orderdetails_ibfk_2` FOREIGN KEY (`productCode`) REFERENCES `products` (`productCode`)
 );
 
     </string>
