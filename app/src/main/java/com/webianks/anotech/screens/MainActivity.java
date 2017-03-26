@@ -63,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
         database.execSQL("DROP TABLE IF EXISTS productlines");
         database.execSQL(getString(R.string.create_product_lines));
 
+        database.execSQL("DROP TABLE IF EXISTS products");
+        database.execSQL(getString(R.string.create_products));
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
