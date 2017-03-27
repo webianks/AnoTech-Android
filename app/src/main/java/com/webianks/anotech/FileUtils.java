@@ -42,13 +42,13 @@ public class FileUtils {
         return success;
     }
 
-    public static void createOutputFile() {
+    public static void createOutputFile(String file_name) {
 
         File root = new File(Environment.getExternalStorageDirectory(), "Anotech");
         if (!root.exists()) {
             root.mkdirs();
         }
-        filepath = new File(root, "orders_date_difference.csv");
+        filepath = new File(root, file_name);
     }
 
     public static void deleteFile() {

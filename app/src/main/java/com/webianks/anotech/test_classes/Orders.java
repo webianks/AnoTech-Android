@@ -137,7 +137,7 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
         }
 
-        FileUtils.createOutputFile();
+        FileUtils.createOutputFile("orders_date_difference.csv");
         if (FileUtils.writeOutputFile(stringBuilder.toString()))
             Log.d(Orders.class.getSimpleName(), "Writing csv file done.");
 

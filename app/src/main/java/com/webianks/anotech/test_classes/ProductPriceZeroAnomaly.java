@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.webianks.anotech.FileUtils;
 import com.webianks.anotech.R;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
@@ -116,13 +117,16 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
 
         }
 
-        Iterator it = dateCountMap.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            Log.d(ProductPriceZeroAnomaly.class.getSimpleName(),
-                    "Order Date: " + pair.getKey() + " No of orders: " + pair.getValue());
-
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Object o : dateCountMap.entrySet()) {
+            Map.Entry pair = (Map.Entry) o;
+            //Log.d(ProductPriceZeroAnomaly.class.getSimpleName(), "Order Date: " + pair.getKey() + " No of orders: " + pair.getValue());
+            stringBuilder.append(pair.getKey() + "," + pair.getValue() + "\n");
         }
+
+        FileUtils.createOutputFile("orders_count_on_day.csv");
+        if (FileUtils.writeOutputFile(stringBuilder.toString()))
+            Log.d(ProductPriceZeroAnomaly.class.getSimpleName(), "Writing csv file done.");
 
     }
 
