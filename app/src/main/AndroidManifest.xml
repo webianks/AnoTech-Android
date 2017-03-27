@@ -36,6 +36,10 @@
             android:name=".screens.ScatterChartActivity"
             android:label="" />
 
+        <activity
+            android:name=".test_classes.ProductPriceZeroAnomaly"
+            android:label="@string/product_price_zero" />
+
     </application>
 
 </manifest>

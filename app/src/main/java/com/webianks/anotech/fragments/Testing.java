@@ -14,6 +14,7 @@ import com.webianks.anotech.R;
 import com.webianks.anotech.adapters.TestingAdapter;
 import com.webianks.anotech.test_classes.OrderDetails;
 import com.webianks.anotech.test_classes.Orders;
+import com.webianks.anotech.test_classes.ProductPriceZeroAnomaly;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +55,8 @@ public class Testing extends Fragment implements TestingAdapter.ItemClickListene
 
         testingList.add("OrderDetail Anomaly");
         testingList.add("Orders Anomaly");
-        testingList.add("Another Anomaly");
-        testingList.add("Another Anomaly");
-        testingList.add("Another Anomaly");
+        testingList.add("Product Price Zero Anomaly");
+        testingList.add("Credit Card Fraud");
         testingList.add("Another Anomaly");
 
         TestingAdapter adapter = new TestingAdapter(getActivity(), testingList);
@@ -72,5 +72,7 @@ public class Testing extends Fragment implements TestingAdapter.ItemClickListene
             startActivity(new Intent(getActivity(), OrderDetails.class));
         else if(testingList.get(position).equals("Orders Anomaly"))
             startActivity(new Intent(getActivity(), Orders.class));
+        else if(testingList.get(position).equals("Product Price Zero Anomaly"))
+            startActivity(new Intent(getActivity(), ProductPriceZeroAnomaly.class));
     }
 }

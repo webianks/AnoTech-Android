@@ -3345,5 +3345,6 @@ CREATE TABLE `customers` (
 (10425, \'S50_1392\', 18, \'94.92\', 2);
         
     </string>
+    <string name="product_price_zero">Products Anomaly</string>
 
 </resources>
