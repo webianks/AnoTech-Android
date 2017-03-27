@@ -343,7 +343,7 @@
         
         
         
-        INSERT INTO `payments` (`customerNumber`, `checkNumber`, `paymentDate`, `amount`) VALUES
+        INSERT INTO `payments` (`customerNumber`, `cardNumber`, `paymentDate`, `amount`) VALUES
 (103, \'HQ336336\', \'2004-10-19\', \'6066.78\'),
 (103, \'JM555205\', \'2003-06-05\', \'14571.44\'),
 (103, \'OM314933\', \'2004-12-18\', \'1676.14\'),

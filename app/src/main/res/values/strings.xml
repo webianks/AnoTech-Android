@@ -118,7 +118,7 @@ CREATE TABLE `customers` (
 
      CREATE TABLE `payments` (
   `customerNumber` int(11) NOT NULL,
-  `checkNumber` varchar(50) NOT NULL,
+  `cardNumber` varchar(100) NOT NULL,
   `paymentDate` date NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   PRIMARY KEY (`customerNumber`,`checkNumber`),
