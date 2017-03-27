@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.ScatterData;
@@ -33,9 +34,16 @@ public class ScatterChartActivity extends AppCompatActivity {
 
         mChart = (ScatterChart) findViewById(R.id.chart1);
 
+        String type = getIntent().getStringExtra("type");
+
+        String fileName = " ";
+        if (type.equals("orders"))
+            fileName = "orders_date_difference.csv";
+        else if (type.equals("product_price"))
+            fileName = "orders_count_on_day.csv";
 
         File root = new File(Environment.getExternalStorageDirectory(), "Anotech");
-        File filepath = new File(root, "orders_date_difference.csv");
+        File filepath = new File(root, fileName);
         ArrayList<Entry> entries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<String>();
         try {
@@ -47,7 +55,7 @@ public class ScatterChartActivity extends AppCompatActivity {
 
                 String[] splittedLine = line.split(",");
 
-                if (splittedLine.length == 2 && Integer.valueOf(splittedLine[1]) > 0){
+                if (splittedLine.length == 2 && Integer.valueOf(splittedLine[1]) > 0) {
                     entries.add(new Entry(Float.valueOf(splittedLine[1]), i++));
                     labels.add(splittedLine[0]);
                 }
@@ -58,8 +66,14 @@ public class ScatterChartActivity extends AppCompatActivity {
             //You'll need to add proper error handling here
         }
 
+        String label = " ";
+        if (type.equals("orders"))
+            label = "# of days";
+        else if (type.equals("product_price"))
+            label = "# of orders";
 
-        ScatterDataSet dataset = new ScatterDataSet(entries, "# of days");
+
+        ScatterDataSet dataset = new ScatterDataSet(entries, label);
         dataset.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
 
         ScatterData data = new ScatterData(labels, dataset);

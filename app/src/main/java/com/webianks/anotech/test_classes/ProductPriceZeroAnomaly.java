@@ -169,6 +169,7 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
         }
 
         Intent intent = new Intent(this, ScatterChartActivity.class);
+        intent.putExtra("type","product_price");
         startActivity(intent);
 
     }

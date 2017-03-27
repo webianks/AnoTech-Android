@@ -175,6 +175,7 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
         Log.d(Orders.class.getSimpleName(), " " + cursor.getCount());
 
         Intent intent = new Intent(this, ScatterChartActivity.class);
+        intent.putExtra("type","orders");
         startActivity(intent);
 
     }
