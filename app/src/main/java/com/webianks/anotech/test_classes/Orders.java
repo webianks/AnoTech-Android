@@ -165,13 +165,11 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
         System.out.println("Non anomalous days count: " + allowedDays);
 
-
         Iterator it = map.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
             if ((long) pair.getKey() > allowedDays)
                 Log.d(Orders.class.getSimpleName(), "Order shipping anomaly in order: " + pair.getValue() + " with days: " + pair.getKey());
-
         }
 
         Log.d(Orders.class.getSimpleName(), " " + cursor.getCount());

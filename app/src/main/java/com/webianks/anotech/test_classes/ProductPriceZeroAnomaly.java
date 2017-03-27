@@ -37,6 +37,7 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
     private TextInputEditText statusET;
     private TextInputEditText commentsET;
     private TextInputEditText customerNumberET;
+    private String TAG = ProductPriceZeroAnomaly.class.getSimpleName();
 
 
     @Override
@@ -127,6 +128,33 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
         FileUtils.createOutputFile("orders_count_on_day.csv");
         if (FileUtils.writeOutputFile(stringBuilder.toString()))
             Log.d(ProductPriceZeroAnomaly.class.getSimpleName(), "Writing csv file done.");
+
+        double sd = 0;
+        double sum = 0;
+
+
+        for (Object o : dateCountMap.entrySet()) {
+            Map.Entry pair = (Map.Entry) o;
+            sum = sum + (double) pair.getValue();
+        }
+
+        double average = sum / dateCountMap.size();
+        Log.d(TAG, "Average value is : " + average);
+
+        for (Object o : dateCountMap.entrySet()) {
+            Map.Entry pair = (Map.Entry) o;
+            double difference = (double) pair.getValue() - average;
+            sd += (difference * difference) / dateCountMap.size();
+        }
+
+        double standardDeviation = Math.sqrt(sd);
+
+        Log.d(TAG,"Std Devation is: " + standardDeviation);
+
+        int normalOrdersCount = (int) Math.ceil(standardDeviation + average);
+
+        Log.d(TAG,"Normal order max count: " + normalOrdersCount);
+
 
     }
 
