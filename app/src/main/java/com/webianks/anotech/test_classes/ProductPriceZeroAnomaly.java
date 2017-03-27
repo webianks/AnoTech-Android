@@ -2,6 +2,7 @@ package com.webianks.anotech.test_classes;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.webianks.anotech.FileUtils;
 import com.webianks.anotech.R;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
+import com.webianks.anotech.screens.ScatterChartActivity;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -117,11 +119,13 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
             //Log.d(ProductPriceZeroAnomaly.class.getSimpleName(), "runCheck: " + orderDateInMiliseconds);
 
         }
+        cursor.close();
+        database.close();
 
         StringBuilder stringBuilder = new StringBuilder();
         for (Object o : dateCountMap.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
-            //Log.d(ProductPriceZeroAnomaly.class.getSimpleName(), "Order Date: " + pair.getKey() + " No of orders: " + pair.getValue());
+            Log.d(ProductPriceZeroAnomaly.class.getSimpleName(), "Order Date: " + pair.getKey() + " No of orders: " + pair.getValue());
             stringBuilder.append(pair.getKey() + "," + pair.getValue() + "\n");
         }
 
@@ -135,7 +139,8 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
 
         for (Object o : dateCountMap.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
-            sum = sum + (double) pair.getValue();
+            int value = (int) pair.getValue();
+            sum = sum + (double) value;
         }
 
         double average = sum / dateCountMap.size();
@@ -143,18 +148,28 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
 
         for (Object o : dateCountMap.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
-            double difference = (double) pair.getValue() - average;
+            int value = (int) pair.getValue();
+            double difference = (double) value - average;
             sd += (difference * difference) / dateCountMap.size();
         }
 
         double standardDeviation = Math.sqrt(sd);
 
-        Log.d(TAG,"Std Devation is: " + standardDeviation);
+        Log.d(TAG, "Std Devation is: " + standardDeviation);
 
         int normalOrdersCount = (int) Math.ceil(standardDeviation + average);
 
-        Log.d(TAG,"Normal order max count: " + normalOrdersCount);
+        Log.d(TAG, "Normal order max count: " + normalOrdersCount);
 
+        for (Object o : dateCountMap.entrySet()) {
+            Map.Entry pair = (Map.Entry) o;
+            int value = (int) pair.getValue();
+            if ( value > (normalOrdersCount+1))
+                Log.d(TAG, "Abnormal count of orders on date : " + pair.getKey() + " with orders as : " + pair.getValue());
+        }
+
+        Intent intent = new Intent(this, ScatterChartActivity.class);
+        startActivity(intent);
 
     }
 
