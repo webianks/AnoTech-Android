@@ -2,6 +2,7 @@ package com.webianks.anotech.test_classes;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import com.webianks.anotech.R;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
+
+import java.util.Calendar;
 
 /**
  * Created by R Ankit on 27-03-2017.
@@ -75,6 +78,26 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
 
         AnotechDBHelper dbHelper = new AnotechDBHelper(this);
         SQLiteDatabase database = dbHelper.getReadableDatabase();
+
+        Cursor cursor = database.query(Contract.TABLE_ORDERS, null,
+                null, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+
+            int order_date_index = cursor.getColumnIndex(Contract.OrdersEntry.ORDER_DATE);
+            String orderDate = cursor.getString(order_date_index);
+            String[] splittedOrderDate = orderDate.split("-");
+
+            Calendar calender = Calendar.getInstance();
+            calender.set(Calendar.DAY_OF_MONTH, Integer.valueOf(splittedOrderDate[2]));
+            calender.set(Calendar.MONTH, Integer.valueOf(splittedOrderDate[1]));
+            calender.set(Calendar.YEAR, Integer.valueOf(splittedOrderDate[0]));
+
+            long orderDateInMiliseconds = calender.getTimeInMillis();
+
+            Log.d(ProductPriceZeroAnomaly.class.getSimpleName(), "runCheck: "+orderDateInMiliseconds);
+
+        }
 
     }
 

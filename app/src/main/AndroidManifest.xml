@@ -40,6 +40,10 @@
             android:name=".test_classes.ProductPriceZeroAnomaly"
             android:label="@string/product_price_zero" />
 
+        <activity
+            android:name=".test_classes.CreditCardFraud"
+            android:label="@string/credit_card_fraud" />
+
     </application>
 
 </manifest>

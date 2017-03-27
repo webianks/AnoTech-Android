@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.webianks.anotech.R;
 import com.webianks.anotech.adapters.TestingAdapter;
+import com.webianks.anotech.test_classes.CreditCardFraud;
 import com.webianks.anotech.test_classes.OrderDetails;
 import com.webianks.anotech.test_classes.Orders;
 import com.webianks.anotech.test_classes.ProductPriceZeroAnomaly;
@@ -53,11 +54,10 @@ public class Testing extends Fragment implements TestingAdapter.ItemClickListene
         testingRecyclerView.setLayoutManager(linearLayoutManager);
 
 
-        testingList.add("OrderDetail Anomaly");
-        testingList.add("Orders Anomaly");
+        testingList.add("Quantity Ordered Anomaly");
+        testingList.add("Date Difference Anomaly");
         testingList.add("Product Price Zero Anomaly");
         testingList.add("Credit Card Fraud");
-        testingList.add("Another Anomaly");
 
         TestingAdapter adapter = new TestingAdapter(getActivity(), testingList);
         testingRecyclerView.setAdapter(adapter);
@@ -68,11 +68,16 @@ public class Testing extends Fragment implements TestingAdapter.ItemClickListene
     @Override
     public void itemClicked(int position) {
 
-        if (testingList.get(position).equals("OrderDetail Anomaly"))
+        if (testingList.get(position).equals("Quantity Ordered Anomaly"))
             startActivity(new Intent(getActivity(), OrderDetails.class));
-        else if(testingList.get(position).equals("Orders Anomaly"))
+
+        else if(testingList.get(position).equals("Date Difference Anomaly"))
             startActivity(new Intent(getActivity(), Orders.class));
+
         else if(testingList.get(position).equals("Product Price Zero Anomaly"))
             startActivity(new Intent(getActivity(), ProductPriceZeroAnomaly.class));
+
+        else if(testingList.get(position).equals("Credit Card Fraud"))
+            startActivity(new Intent(getActivity(), CreditCardFraud.class));
     }
 }
