@@ -19,6 +19,9 @@ import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by R Ankit on 27-03-2017.
@@ -82,6 +85,9 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
         Cursor cursor = database.query(Contract.TABLE_ORDERS, null,
                 null, null, null, null, null);
 
+        Map<String, Integer> dateCountMap = new HashMap<>();
+        long lastDateMiliSec = 0;
+
         while (cursor.moveToNext()) {
 
             int order_date_index = cursor.getColumnIndex(Contract.OrdersEntry.ORDER_DATE);
@@ -95,7 +101,26 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
 
             long orderDateInMiliseconds = calender.getTimeInMillis();
 
-            Log.d(ProductPriceZeroAnomaly.class.getSimpleName(), "runCheck: "+orderDateInMiliseconds);
+            if (lastDateMiliSec == orderDateInMiliseconds) {
+
+                dateCountMap.put(orderDate, dateCountMap.get(orderDate) + 1);
+                lastDateMiliSec = orderDateInMiliseconds;
+
+            } else {
+                lastDateMiliSec = orderDateInMiliseconds;
+                //set date and no of orders on that date
+                dateCountMap.put(orderDate, 1);
+            }
+
+            //Log.d(ProductPriceZeroAnomaly.class.getSimpleName(), "runCheck: " + orderDateInMiliseconds);
+
+        }
+
+        Iterator it = dateCountMap.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            Log.d(ProductPriceZeroAnomaly.class.getSimpleName(),
+                    "Order Date: " + pair.getKey() + " No of orders: " + pair.getValue());
 
         }
 
