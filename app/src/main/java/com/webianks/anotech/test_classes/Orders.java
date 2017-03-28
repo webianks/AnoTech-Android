@@ -35,8 +35,7 @@ import java.util.Map;
  */
 
 public class Orders extends AppCompatActivity implements View.OnClickListener {
-
-
+    
     private TextInputEditText orderNumberET;
     private TextInputEditText orderDateET;
     private TextInputEditText requiredDateET;

@@ -121,7 +121,7 @@ CREATE TABLE `customers` (
   `cardNumber` varchar(100) NOT NULL,
   `paymentDate` date NOT NULL,
   `amount` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`customerNumber`,`checkNumber`),
+  PRIMARY KEY (`customerNumber`,`cardNumber`),
   CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`customerNumber`) REFERENCES `customers` (`customerNumber`)
 );
 
@@ -3347,5 +3347,6 @@ CREATE TABLE `customers` (
     </string>
     <string name="product_price_zero">Products Anomaly</string>
     <string name="credit_card_fraud">Credit Card Fraud</string>
+    <string name="card_number">cardNumber</string>
 
 </resources>
