@@ -47,5 +47,14 @@ public class Contract {
 
     }
 
+    public static final class PaymentsEntry implements BaseColumns {
+
+        public static final String CARD_NUMBER = "cardNumber";
+        public static final String AMOUNT = "amount";
+        public static final String PAYMENT_DATE = "paymentDate";
+        public static final String CUSTOMER_NUMBER = "customerNumber";
+
+    }
+
 
 }

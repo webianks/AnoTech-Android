@@ -83,7 +83,7 @@
                     android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/shipped_date"
+                    android:hint="@string/amount"
                     android:inputType="number" />
 
             </android.support.design.widget.TextInputLayout>

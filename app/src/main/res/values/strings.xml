@@ -3348,5 +3348,6 @@ CREATE TABLE `customers` (
     <string name="product_price_zero">Products Anomaly</string>
     <string name="credit_card_fraud">Credit Card Fraud</string>
     <string name="card_number">cardNumber</string>
+    <string name="amount">amount</string>
 
 </resources>
