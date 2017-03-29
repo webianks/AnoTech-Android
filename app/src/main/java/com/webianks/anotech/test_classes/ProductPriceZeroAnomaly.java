@@ -95,6 +95,7 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
 
         Map<String, Integer> dateCountMap = new HashMap<>();
         long lastDateMiliSec = 0;
+        StringBuilder outlierText = new StringBuilder();
 
         while (cursor.moveToNext()) {
 
@@ -168,12 +169,17 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
         for (Object o : dateCountMap.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
             int value = (int) pair.getValue();
-            if ( value > (normalOrdersCount+1))
+            if ( value > (normalOrdersCount+1)){
                 Log.d(TAG, "Abnormal count of orders on date : " + pair.getKey() + " with orders as : " + pair.getValue());
+                outlierText.append("Abnormal count of orders on date : " + pair.getKey() + " with orders as : " + pair.getValue()+"\n");
+            }
+
         }
 
         Intent intent = new Intent(this, ResultsActivity.class);
         intent.putExtra("type","product_price");
+        intent.putExtra("reason", getString(R.string.product_price_zero_reason)+normalOrdersCount);
+        intent.putExtra("outlier", outlierText.toString());
         startActivity(intent);
 
     }
@@ -213,7 +219,6 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
             contentValues.put(Contract.OrdersEntry.CUSTOMER_NUMBER, customer_number);
 
             long code = database.insert(Contract.TABLE_ORDERS, null, contentValues);
-
 
             if (code > 0)
                 Toast.makeText(this, getString(R.string.done), Toast.LENGTH_LONG).show();

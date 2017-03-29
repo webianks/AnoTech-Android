@@ -3353,5 +3353,6 @@ CREATE TABLE `customers` (
     <string name="please_wait">Checking data...</string>
     <string name="order_details_reason">Outliers have occured because quantitiy ordered was greater than quantity in stock.</string>
     <string name="order_shipping_reason">OrderDate and ShippedDate does not fall in allowed day difference value: </string>
+    <string name="product_price_zero_reason">There may be anomaly because no of orders in particular day doesn\'t fall in normal count: </string>
 
 </resources>

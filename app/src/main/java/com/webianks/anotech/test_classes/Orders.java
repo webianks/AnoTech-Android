@@ -178,8 +178,6 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
                 Log.d(Orders.class.getSimpleName(), "Order shipping anomaly in order: " + pair.getValue() + " with days: " + pair.getKey());
                 outlierText.append("Order shipping anomaly in order: " + pair.getValue() + " with days: " + pair.getKey()+"\n");
             }
-
-
         }
 
         Log.d(Orders.class.getSimpleName(), " " + cursor.getCount());
