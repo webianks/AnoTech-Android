@@ -35,6 +35,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
     private TextInputEditText cardNumberET;
     private TextInputEditText paymentDateET;
     private TextInputEditText amountET;
+    private String TAG = CreditCardFraud.class.getSimpleName();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,18 +102,41 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
             calender.set(Calendar.YEAR, Integer.valueOf(splittedPaymentDate[0]));
 
 
-            if (Integer.valueOf(splittedPaymentDate[0]) == 2014){
+            if (Integer.valueOf(splittedPaymentDate[0]) == 2004) {
 
-                TransactionData transactionData = new TransactionData();
-                int DAY_OF_YEAR  = calender.get(Calendar.DAY_OF_YEAR);
+                int DAY_OF_YEAR = calender.get(Calendar.DAY_OF_YEAR);
+                boolean matched = false;
 
-                transactionData.setCardNumber(cardNumber);
-                transactionData.setDayNumber(DAY_OF_YEAR);
+                Log.d(TAG, "dayofYear: " + DAY_OF_YEAR);
+
+                for (int i = 0; i < transactionDataList.size(); i++) {
+
+                    if (transactionDataList.get(i).getCardNumber().equals(cardNumber)) {
+
+                        transactionDataList.get(i).setDayNumber(DAY_OF_YEAR);
+                        matched = true;
+                    }
+
+                }
+
+                if (!matched) {
+                    TransactionData transactionData = new TransactionData();
+                    transactionData.setCardNumber(cardNumber);
+                    transactionData.setDayNumber(DAY_OF_YEAR);
+                    transactionDataList.add(transactionData);
+                }
+
             }
 
         }
 
         cursor.close();
+
+        for (int i = 0; i < transactionDataList.size(); i++) {
+
+            Log.d(TAG, "runCheck: " + transactionDataList.get(i).getCount());
+
+        }
 
     }
 
