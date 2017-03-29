@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by R Ankit on 27-03-2017.
@@ -179,6 +180,42 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
             Log.d(TAG,"Final occurance values "+transactionInMonthsList.get(i).getCardNumber()+" "+
                     transactionInMonthsList.get(i).getCount().toString());
+
+            double sd = 0;
+            double sum = 0;
+
+            for (int j = 0; j< transactionInMonthsList.get(i).getCount().size();j++) {
+                int value = transactionInMonthsList.get(i).getCount().get(j);
+                sum = sum + (double) value;
+            }
+
+            double average = sum / transactionInMonthsList.get(i).getCount().size();
+            Log.d(TAG, "Average value is : " + average);
+
+
+
+            for (int j = 0; j<transactionInMonthsList.get(i).getCount().size();j++) {
+                int value = transactionInMonthsList.get(i).getCount().get(j);
+                double difference = (double) value - average;
+                sd += (difference * difference) / transactionInMonthsList.get(i).getCount().size();
+            }
+
+            double standardDeviation = Math.sqrt(sd);
+
+            Log.d(TAG, "Std Devation is: " + standardDeviation);
+
+            int normalCount = (int) Math.ceil(standardDeviation + average);
+
+            Log.d(TAG, "Normal order max count: " + normalCount);
+
+            for (int j = 0; j<transactionInMonthsList.get(i).getCount().size();j++) {
+
+                int value = transactionInMonthsList.get(i).getCount().get(j);
+                if ( value > normalCount)
+                    Log.d(TAG, "Abnormal count of payments by card : " + transactionInMonthsList.get(i).getCardNumber()
+                            + " with payments as : " + transactionInMonthsList.get(i).getCount().get(j));
+            }
+
         }
 
     }
