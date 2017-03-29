@@ -3,6 +3,7 @@ package com.webianks.anotech.test_classes;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -23,6 +24,7 @@ import com.webianks.anotech.data.TransactionInMonth;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
 import com.webianks.anotech.database.Projections;
+import com.webianks.anotech.screens.ResultsActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +46,8 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
     private TextInputEditText amountET;
     private String TAG = CreditCardFraud.class.getSimpleName();
     private ProgressDialog progressDialog;
+    private boolean found;
+    private StringBuilder outlierText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,6 +96,8 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
         List<TransactionData> transactionDataList = new ArrayList<>();
 
+        outlierText = new StringBuilder();
+        found = false;
         while (cursor.moveToNext()) {
 
             int card_number_index = cursor.getColumnIndex(Contract.PaymentsEntry.CARD_NUMBER);
@@ -161,7 +167,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
                 int monthSum = counts[k * 30] - counts[start];
                 transactionInMonth.setCount(monthSum);
-                start = k*30;
+                start = k * 30;
                 Log.d(TAG, "Sum: " + transactionDataList.get(i).getCardNumber() + " " + monthSum);
 
             }
@@ -178,15 +184,17 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
     private void performMeanCheck(List<TransactionInMonth> transactionInMonthsList) {
 
 
+        int normalCount = 0;
+        
         for (int i = 0; i < transactionInMonthsList.size(); i++) {
 
-            Log.d(TAG,"Final occurance values "+transactionInMonthsList.get(i).getCardNumber()+" "+
+            Log.d(TAG, "Final occurance values " + transactionInMonthsList.get(i).getCardNumber() + " " +
                     transactionInMonthsList.get(i).getCount().toString());
 
             double sd = 0;
             double sum = 0;
 
-            for (int j = 0; j< transactionInMonthsList.get(i).getCount().size();j++) {
+            for (int j = 0; j < transactionInMonthsList.get(i).getCount().size(); j++) {
                 int value = transactionInMonthsList.get(i).getCount().get(j);
                 sum = sum + (double) value;
             }
@@ -195,8 +203,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
             Log.d(TAG, "Average value is : " + average);
 
 
-
-            for (int j = 0; j<transactionInMonthsList.get(i).getCount().size();j++) {
+            for (int j = 0; j < transactionInMonthsList.get(i).getCount().size(); j++) {
                 int value = transactionInMonthsList.get(i).getCount().get(j);
                 double difference = (double) value - average;
                 sd += (difference * difference) / transactionInMonthsList.get(i).getCount().size();
@@ -206,20 +213,36 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
             Log.d(TAG, "Std Deviation is: " + standardDeviation);
 
-            int normalCount = (int) Math.ceil(standardDeviation + average);
+            normalCount = (int) Math.ceil(standardDeviation + average);
 
             Log.d(TAG, "Normal payment max count: " + normalCount);
 
-            for (int j = 0; j<transactionInMonthsList.get(i).getCount().size();j++) {
+            for (int j = 0; j < transactionInMonthsList.get(i).getCount().size(); j++) {
 
                 int value = transactionInMonthsList.get(i).getCount().get(j);
-                if ( value > normalCount)
+                if (value > normalCount) {
+
+                    found = true;
                     Log.d(TAG, "Abnormal count of payments by card : " + transactionInMonthsList.get(i).getCardNumber()
                             + " with payments as : " + transactionInMonthsList.get(i).getCount().get(j));
+
+                    outlierText.append("Abnormal count of payments by card : " + transactionInMonthsList.get(i).getCardNumber()
+                            + " with payments as : " + transactionInMonthsList.get(i).getCount().get(j)+"\n");
+                }
             }
+
         }
 
         progressDialog.dismiss();
+
+        if (found){
+
+            Intent intent = new Intent(this, ResultsActivity.class);
+            intent.putExtra("type", "credit_card");
+            intent.putExtra("reason", getString(R.string.credit_fraud_reason)+normalCount);
+            intent.putExtra("outlier", outlierText.toString());
+            startActivity(intent);
+        }
 
     }
 
@@ -234,7 +257,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
         }
 
-        protected Void doInBackground(Void...values) {
+        protected Void doInBackground(Void... values) {
 
             runCheck();
             return null;
