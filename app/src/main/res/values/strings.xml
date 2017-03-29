@@ -3350,5 +3350,6 @@ CREATE TABLE `customers` (
     <string name="card_number">cardNumber</string>
     <string name="amount">amount</string>
     <string name="run_check">Run Test</string>
+    <string name="please_wait">Checking data...</string>
 
 </resources>

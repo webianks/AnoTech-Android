@@ -1,10 +1,12 @@
 package com.webianks.anotech.test_classes;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -44,6 +46,7 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
     private TextInputEditText statusET;
     private TextInputEditText commentsET;
     private TextInputEditText customerNumberET;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -71,6 +74,11 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
         customerNumberET = (TextInputEditText) findViewById(R.id.customerNumber);
 
         findViewById(R.id.insert).setOnClickListener(this);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Anomaly Test");
+        progressDialog.setMessage(getString(R.string.please_wait));
+        progressDialog.setIndeterminate(true);
 
     }
 
@@ -232,9 +240,31 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
         if (item.getItemId() == android.R.id.home)
             finish();
         else if (item.getItemId() == R.id.run_check)
-            runCheck();
+            new DatabaseTask().execute();
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private class DatabaseTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog.show();
+
+        }
+
+        protected Void doInBackground(Void...values) {
+
+            runCheck();
+            return null;
+        }
+
+        protected void onPostExecute(Long result) {
+            progressDialog.dismiss();
+        }
     }
 
     @Override

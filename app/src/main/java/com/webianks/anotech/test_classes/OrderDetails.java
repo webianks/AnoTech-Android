@@ -1,8 +1,10 @@
 package com.webianks.anotech.test_classes;
 
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -29,6 +31,7 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
     private TextInputEditText quantityOrderedET;
     private TextInputEditText priceEachET;
     private TextInputEditText orderLineNumberET;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -56,6 +59,12 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.insert).setOnClickListener(this);
 
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Anomaly Test");
+        progressDialog.setMessage(getString(R.string.please_wait));
+        progressDialog.setIndeterminate(true);
+
     }
 
 
@@ -66,10 +75,32 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             finish();
 
         else if (item.getItemId() == R.id.run_check)
-            runCheck();
+            new DatabaseTask().execute();
 
         return super.onOptionsItemSelected(item);
     }
+
+    private class DatabaseTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog.show();
+
+        }
+
+        protected Void doInBackground(Void...values) {
+
+            runCheck();
+            return null;
+        }
+
+        protected void onPostExecute(Long result) {
+            progressDialog.dismiss();
+        }
+    }
+
 
 
     @Override
@@ -96,7 +127,6 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
 
         Cursor cursor = database.query(Contract.TABLE_ORDER_DETAILS, null,
                 null, null, null, null, null);
-
 
         boolean found = false;
 

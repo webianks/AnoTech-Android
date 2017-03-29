@@ -1,9 +1,11 @@
 package com.webianks.anotech.test_classes;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -41,6 +43,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
     private TextInputEditText paymentDateET;
     private TextInputEditText amountET;
     private String TAG = CreditCardFraud.class.getSimpleName();
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +67,11 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
         findViewById(R.id.insert).setOnClickListener(this);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Anomaly Test");
+        progressDialog.setMessage(getString(R.string.please_wait));
+        progressDialog.setIndeterminate(true);
+
     }
 
     @Override
@@ -79,10 +87,8 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
         AnotechDBHelper dbHelper = new AnotechDBHelper(this);
         SQLiteDatabase database = dbHelper.getReadableDatabase();
 
-
         Cursor cursor = database.query(Contract.TABLE_PAYMENTS, null,
                 null, null, null, null, null);
-
 
         List<TransactionData> transactionDataList = new ArrayList<>();
 
@@ -211,10 +217,34 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
                     Log.d(TAG, "Abnormal count of payments by card : " + transactionInMonthsList.get(i).getCardNumber()
                             + " with payments as : " + transactionInMonthsList.get(i).getCount().get(j));
             }
+        }
+
+        progressDialog.dismiss();
+
+    }
+
+
+    private class DatabaseTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog.show();
 
         }
 
+        protected Void doInBackground(Void...values) {
+
+            runCheck();
+            return null;
+        }
+
+        protected void onPostExecute(Long result) {
+            progressDialog.dismiss();
+        }
     }
+
 
     private void insertNow() {
 
@@ -262,7 +292,8 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
         if (item.getItemId() == android.R.id.home)
             finish();
         else if (item.getItemId() == R.id.run_check)
-            runCheck();
+            new DatabaseTask().execute();
+
         return super.onOptionsItemSelected(item);
     }
 
