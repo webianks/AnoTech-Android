@@ -107,6 +107,7 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
         StringBuilder stringBuilder = new StringBuilder();
         List<Long> listOfDays = new ArrayList<>();
         Map<Long, String> map = new HashMap<>();
+        StringBuilder outlierText = new StringBuilder();
 
         while (cursor.moveToNext()) {
 
@@ -173,14 +174,20 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
         Iterator it = map.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
-            if ((long) pair.getKey() > allowedDays)
+            if ((long) pair.getKey() > allowedDays){
                 Log.d(Orders.class.getSimpleName(), "Order shipping anomaly in order: " + pair.getValue() + " with days: " + pair.getKey());
+                outlierText.append("Order shipping anomaly in order: " + pair.getValue() + " with days: " + pair.getKey()+"\n");
+            }
+
+
         }
 
         Log.d(Orders.class.getSimpleName(), " " + cursor.getCount());
 
         Intent intent = new Intent(this, ResultsActivity.class);
         intent.putExtra("type", "orders");
+        intent.putExtra("reason", getString(R.string.order_shipping_reason)+allowedDays);
+        intent.putExtra("outlier", outlierText.toString());
         startActivity(intent);
 
     }
