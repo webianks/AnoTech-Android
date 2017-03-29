@@ -1,6 +1,8 @@
 package com.webianks.anotech.test_classes;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,8 +15,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.webianks.anotech.R;
+import com.webianks.anotech.data.TransactionData;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
+import com.webianks.anotech.database.Projections;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by R Ankit on 27-03-2017.
@@ -62,7 +70,50 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
             runCheck();
     }
 
+    @SuppressLint("WrongConstant")
     private void runCheck() {
+
+        AnotechDBHelper dbHelper = new AnotechDBHelper(this);
+        SQLiteDatabase database = dbHelper.getReadableDatabase();
+
+
+        Cursor cursor = database.query(Contract.TABLE_PAYMENTS, null,
+                null, null, null, null, null);
+
+
+        List<TransactionData> transactionDataList = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+
+            int card_number_index = cursor.getColumnIndex(Contract.PaymentsEntry.CARD_NUMBER);
+            int payment_date_index = cursor.getColumnIndex(Contract.PaymentsEntry.PAYMENT_DATE);
+
+
+            String cardNumber = cursor.getString(card_number_index);
+            String paymentDate = cursor.getString(payment_date_index);
+
+
+            String[] splittedPaymentDate = paymentDate.split("-");
+
+            Calendar calender = Calendar.getInstance();
+            calender.set(Calendar.DAY_OF_MONTH, Integer.valueOf(splittedPaymentDate[2]));
+            calender.set(Calendar.MONTH, Integer.valueOf(splittedPaymentDate[1]));
+            calender.set(Calendar.YEAR, Integer.valueOf(splittedPaymentDate[0]));
+
+
+            if (Integer.valueOf(splittedPaymentDate[0]) == 2014){
+
+                TransactionData transactionData = new TransactionData();
+                int DAY_OF_YEAR  = calender.get(Calendar.DAY_OF_YEAR);
+
+                transactionData.setCardNumber(cardNumber);
+                transactionData.setDayNumber(DAY_OF_YEAR);
+            }
+
+        }
+
+        cursor.close();
+
     }
 
     private void insertNow() {
