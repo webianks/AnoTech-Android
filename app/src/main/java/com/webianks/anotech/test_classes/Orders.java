@@ -117,12 +117,12 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
             Calendar calender = Calendar.getInstance();
             calender.set(Calendar.DAY_OF_MONTH, Integer.valueOf(splittedOrderDate[2]));
-            calender.set(Calendar.MONTH, Integer.valueOf(splittedOrderDate[1]));
+            calender.set(Calendar.MONTH, Integer.valueOf(splittedOrderDate[1])-1);
             calender.set(Calendar.YEAR, Integer.valueOf(splittedOrderDate[0]));
 
             Calendar calender2 = Calendar.getInstance();
             calender2.set(Calendar.DAY_OF_MONTH, Integer.valueOf(splittedShippedDate[2]));
-            calender2.set(Calendar.MONTH, Integer.valueOf(splittedShippedDate[1]));
+            calender2.set(Calendar.MONTH, Integer.valueOf(splittedShippedDate[1])-1);
             calender2.set(Calendar.YEAR, Integer.valueOf(splittedShippedDate[0]));
 
             long diff = calender2.getTimeInMillis() - calender.getTimeInMillis();

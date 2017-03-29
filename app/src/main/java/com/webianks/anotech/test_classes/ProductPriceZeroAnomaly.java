@@ -100,7 +100,7 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
 
             Calendar calender = Calendar.getInstance();
             calender.set(Calendar.DAY_OF_MONTH, Integer.valueOf(splittedOrderDate[2]));
-            calender.set(Calendar.MONTH, Integer.valueOf(splittedOrderDate[1]));
+            calender.set(Calendar.MONTH, Integer.valueOf(splittedOrderDate[1])-1);
             calender.set(Calendar.YEAR, Integer.valueOf(splittedOrderDate[0]));
 
             long orderDateInMiliseconds = calender.getTimeInMillis();

@@ -16,11 +16,13 @@ import android.widget.Toast;
 
 import com.webianks.anotech.R;
 import com.webianks.anotech.data.TransactionData;
+import com.webianks.anotech.data.TransactionInMonth;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
 import com.webianks.anotech.database.Projections;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -99,7 +101,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
             GregorianCalendar gc = new GregorianCalendar();
             gc.set(Calendar.DAY_OF_MONTH, Integer.valueOf(splittedPaymentDate[2]));
-            gc.set(Calendar.MONTH, Integer.valueOf(splittedPaymentDate[1])-1);
+            gc.set(Calendar.MONTH, Integer.valueOf(splittedPaymentDate[1]) - 1);
             gc.set(Calendar.YEAR, Integer.valueOf(splittedPaymentDate[0]));
 
             if (Integer.valueOf(splittedPaymentDate[0]) == 2004) {
@@ -107,7 +109,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
                 int DAY_OF_YEAR = gc.get(Calendar.DAY_OF_YEAR);
                 boolean matched = false;
 
-                Log.d(TAG, cardNumber+" dayofYear: " + DAY_OF_YEAR);
+                Log.d(TAG, cardNumber + " dayofYear: " + DAY_OF_YEAR);
 
                 for (int i = 0; i < transactionDataList.size(); i++) {
 
@@ -120,10 +122,12 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
                 }
 
                 if (!matched) {
+
                     TransactionData transactionData = new TransactionData();
                     transactionData.setCardNumber(cardNumber);
                     transactionData.setDayNumber(DAY_OF_YEAR);
                     transactionDataList.add(transactionData);
+
                 }
 
             }
@@ -132,9 +136,26 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
         cursor.close();
 
+        List<TransactionInMonth> transactionInMonthsList = new ArrayList<>();
+
         for (int i = 0; i < transactionDataList.size(); i++) {
 
-            Log.d(TAG, "runCheck: " + transactionDataList.get(i).getCount());
+            TransactionInMonth transactionInMonth = new TransactionInMonth();
+            transactionInMonth.setCardNumber(transactionDataList.get(i).getCardNumber());
+
+            int counts[] = new int[368];
+            counts[0] = 0;
+
+            for (int j = 1; j <= 367; j++) {
+
+                int[] mainCounts = transactionDataList.get(i).getCount();
+                counts[j] = counts[j - 1] + mainCounts[j - 1];
+
+            }
+
+            int firstMonthSum = counts[31] - counts[0];
+
+            Log.d(TAG, "runCheck: " +transactionDataList.get(i).getCardNumber()+" "+ firstMonthSum);
 
         }
 
@@ -151,8 +172,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
         if (card_number.trim().length() > 0 &&
                 amount.trim().length() > 0 &&
                 payment_date.trim().length() > 0 &&
-                customer_number.trim().length() > 0
-                ) {
+                customer_number.trim().length() > 0) {
 
 
             AnotechDBHelper dbHelper = new AnotechDBHelper(this);
