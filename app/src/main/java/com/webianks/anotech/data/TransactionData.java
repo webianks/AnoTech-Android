@@ -7,7 +7,7 @@ package com.webianks.anotech.data;
 public class TransactionData {
 
     String cardNumber;
-    int[] count = new int[365];
+    int[] count = new int[367];
 
 
     public void setCardNumber(String cardNumber) {

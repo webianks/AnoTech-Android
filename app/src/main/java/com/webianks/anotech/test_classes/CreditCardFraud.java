@@ -22,6 +22,7 @@ import com.webianks.anotech.database.Projections;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -96,18 +97,17 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
             String[] splittedPaymentDate = paymentDate.split("-");
 
-            Calendar calender = Calendar.getInstance();
-            calender.set(Calendar.DAY_OF_MONTH, Integer.valueOf(splittedPaymentDate[2]));
-            calender.set(Calendar.MONTH, Integer.valueOf(splittedPaymentDate[1]));
-            calender.set(Calendar.YEAR, Integer.valueOf(splittedPaymentDate[0]));
-
+            GregorianCalendar gc = new GregorianCalendar();
+            gc.set(Calendar.DAY_OF_MONTH, Integer.valueOf(splittedPaymentDate[2]));
+            gc.set(Calendar.MONTH, Integer.valueOf(splittedPaymentDate[1])-1);
+            gc.set(Calendar.YEAR, Integer.valueOf(splittedPaymentDate[0]));
 
             if (Integer.valueOf(splittedPaymentDate[0]) == 2004) {
 
-                int DAY_OF_YEAR = calender.get(Calendar.DAY_OF_YEAR);
+                int DAY_OF_YEAR = gc.get(Calendar.DAY_OF_YEAR);
                 boolean matched = false;
 
-                Log.d(TAG, "dayofYear: " + DAY_OF_YEAR);
+                Log.d(TAG, cardNumber+" dayofYear: " + DAY_OF_YEAR);
 
                 for (int i = 0; i < transactionDataList.size(); i++) {
 
