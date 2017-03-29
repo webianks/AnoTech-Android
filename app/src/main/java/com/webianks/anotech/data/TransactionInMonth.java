@@ -8,8 +8,8 @@ import java.util.Vector;
 
 public class TransactionInMonth {
 
-    String cardNumber;
-    Vector<Integer> count;
+    private String cardNumber;
+    private Vector<Integer> count = new Vector<>();
 
     public void setCount(int count) {
         this.count.add(count);

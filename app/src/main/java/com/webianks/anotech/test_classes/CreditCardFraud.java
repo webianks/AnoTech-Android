@@ -153,10 +153,32 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
             }
 
-            int firstMonthSum = counts[31] - counts[0];
+            int start = 0;
+            for (int k = 1; k <= 12; k++) {
 
-            Log.d(TAG, "runCheck: " +transactionDataList.get(i).getCardNumber()+" "+ firstMonthSum);
+                int monthSum = counts[k * 30] - counts[start];
+                transactionInMonth.setCount(monthSum);
+                start = k*30;
+                Log.d(TAG, "Sum: " + transactionDataList.get(i).getCardNumber() + " " + monthSum);
 
+            }
+
+            transactionInMonthsList.add(transactionInMonth);
+
+        }
+
+        performMeanCheck(transactionInMonthsList);
+
+    }
+
+
+    private void performMeanCheck(List<TransactionInMonth> transactionInMonthsList) {
+
+
+        for (int i = 0; i < transactionInMonthsList.size(); i++) {
+
+            Log.d(TAG,"Final occurance values "+transactionInMonthsList.get(i).getCardNumber()+" "+
+                    transactionInMonthsList.get(i).getCount().toString());
         }
 
     }
