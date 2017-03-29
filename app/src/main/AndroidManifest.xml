@@ -33,7 +33,7 @@
             android:label="@string/structure_viewer" />
 
         <activity
-            android:name=".screens.ScatterChartActivity"
+            android:name=".screens.ResultsActivity"
             android:label="" />
 
         <activity

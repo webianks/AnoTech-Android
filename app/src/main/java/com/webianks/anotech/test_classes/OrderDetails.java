@@ -2,6 +2,7 @@ package com.webianks.anotech.test_classes;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.webianks.anotech.R;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
+import com.webianks.anotech.screens.ResultsActivity;
 
 /**
  * Created by R Ankit on 22-03-2017.
@@ -90,17 +92,16 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        protected Void doInBackground(Void...values) {
+        protected Void doInBackground(Void... values) {
 
             runCheck();
             return null;
         }
 
-        protected void onPostExecute(Long result) {
+        protected void onPostExecute(Void result) {
             progressDialog.dismiss();
         }
     }
-
 
 
     @Override
@@ -129,6 +130,7 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
                 null, null, null, null, null);
 
         boolean found = false;
+        StringBuilder outlierText = new StringBuilder();
 
         while (cursor.moveToNext()) {
 
@@ -137,7 +139,7 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             String product_code = cursor.getString(product_code_index);
             int quantityOrdered = cursor.getInt(quantity_ordered_index);
 
-            Log.d(OrderDetails.class.getSimpleName(),"QuantityOrdered " +quantityOrdered);
+            Log.d(OrderDetails.class.getSimpleName(), "QuantityOrdered " + quantityOrdered);
 
             String[] selectionArgs = {product_code};
 
@@ -150,10 +152,11 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
                 int quantity_in_stock_index = quantityInStockCursor.getColumnIndex(Contract.ProductsEntry.QUANTITY_IN_STOCK);
                 int quantityInStock = quantityInStockCursor.getInt(quantity_in_stock_index);
 
-                Log.d(OrderDetails.class.getSimpleName(),"QuantityInStock " +quantityInStock);
+                Log.d(OrderDetails.class.getSimpleName(), "QuantityInStock " + quantityInStock);
 
                 if (quantityOrdered > quantityInStock) {
                     Log.d(OrderDetails.class.getSimpleName(), "Anomalous Tuple found.");
+                    outlierText.append("Product Code: " + product_code + " - Quantity Ordered: " + quantityOrdered + " - Quantity in Stock: " + quantityInStock + "\n");
                     found = true;
                 }
 
@@ -166,6 +169,14 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
 
         if (!found)
             Toast.makeText(this, "Data looks good.", Toast.LENGTH_LONG).show();
+        else {
+            Intent intent = new Intent(this, ResultsActivity.class);
+            intent.putExtra("type", "OrderDetails");
+            intent.putExtra("reason", getString(R.string.order_details_reason));
+            intent.putExtra("outlier", outlierText.toString());
+            startActivity(intent);
+        }
+
 
     }
 

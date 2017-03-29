@@ -22,11 +22,10 @@ import com.webianks.anotech.FileUtils;
 import com.webianks.anotech.R;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
-import com.webianks.anotech.screens.ScatterChartActivity;
+import com.webianks.anotech.screens.ResultsActivity;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -173,7 +172,7 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
                 Log.d(TAG, "Abnormal count of orders on date : " + pair.getKey() + " with orders as : " + pair.getValue());
         }
 
-        Intent intent = new Intent(this, ScatterChartActivity.class);
+        Intent intent = new Intent(this, ResultsActivity.class);
         intent.putExtra("type","product_price");
         startActivity(intent);
 
@@ -255,7 +254,7 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
             return null;
         }
 
-        protected void onPostExecute(Long result) {
+        protected void onPostExecute(Void result) {
             progressDialog.dismiss();
         }
     }

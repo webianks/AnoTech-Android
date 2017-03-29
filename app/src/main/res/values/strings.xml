@@ -3351,5 +3351,6 @@ CREATE TABLE `customers` (
     <string name="amount">amount</string>
     <string name="run_check">Run Test</string>
     <string name="please_wait">Checking data...</string>
+    <string name="order_details_reason">Outliers have occured because quantitiy ordered was greater than quantity in stock.</string>
 
 </resources>

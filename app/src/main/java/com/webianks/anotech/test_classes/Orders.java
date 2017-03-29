@@ -23,7 +23,7 @@ import com.webianks.anotech.R;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
 import com.webianks.anotech.database.Projections;
-import com.webianks.anotech.screens.ScatterChartActivity;
+import com.webianks.anotech.screens.ResultsActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -179,7 +179,7 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
         Log.d(Orders.class.getSimpleName(), " " + cursor.getCount());
 
-        Intent intent = new Intent(this, ScatterChartActivity.class);
+        Intent intent = new Intent(this, ResultsActivity.class);
         intent.putExtra("type", "orders");
         startActivity(intent);
 
@@ -262,7 +262,7 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
             return null;
         }
 
-        protected void onPostExecute(Long result) {
+        protected void onPostExecute(Void result) {
             progressDialog.dismiss();
         }
     }

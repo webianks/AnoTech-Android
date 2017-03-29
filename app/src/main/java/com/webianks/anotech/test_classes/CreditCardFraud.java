@@ -240,7 +240,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
             return null;
         }
 
-        protected void onPostExecute(Long result) {
+        protected void onPostExecute(Void result) {
             progressDialog.dismiss();
         }
     }

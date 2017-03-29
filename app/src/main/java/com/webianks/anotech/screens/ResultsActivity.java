@@ -4,12 +4,18 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
 import com.webianks.anotech.R;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,20 +27,48 @@ import java.util.ArrayList;
  * Created by R Ankit on 26-03-2017.
  */
 
-public class ScatterChartActivity extends AppCompatActivity {
+public class ResultsActivity extends AppCompatActivity {
 
-
+    private TextView reason;
+    private TextView outliers;
     private ScatterChart mChart;
+    private String type;
+    private String reasonValue;
+    private String outliersValue;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.scatter_chart);
+        setContentView(R.layout.test_result);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setTitle("Anomaly Results");
 
         mChart = (ScatterChart) findViewById(R.id.chart1);
+        reason = (TextView) findViewById(R.id.reason);
+        outliers = (TextView) findViewById(R.id.outliers);
 
-        String type = getIntent().getStringExtra("type");
+        type = getIntent().getStringExtra("type");
+        reasonValue = getIntent().getStringExtra("reason");
+        outliersValue = getIntent().getStringExtra("outlier");
+
+        reason.setText(reasonValue);
+        outliers.setText(outliersValue);
+
+        if (type.equals("OrderDetails")) {
+            mChart.setVisibility(View.GONE);
+        } else
+            setChart();
+
+    }
+
+    private void setChart() {
 
         String fileName = " ";
         if (type.equals("orders"))
@@ -78,7 +112,15 @@ public class ScatterChartActivity extends AppCompatActivity {
 
         ScatterData data = new ScatterData(labels, dataset);
         mChart.setData(data);
-
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home)
+            finish();
+
+        return super.onOptionsItemSelected(item);
+    }
 }
