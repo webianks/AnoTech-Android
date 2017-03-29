@@ -11,6 +11,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -57,7 +58,6 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         orderNumberET = (TextInputEditText) findViewById(R.id.orderNumber);
         orderDateET = (TextInputEditText) findViewById(R.id.orderDate);
         requiredDateET = (TextInputEditText) findViewById(R.id.requiredDate);
@@ -67,7 +67,6 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
         customerNumberET = (TextInputEditText) findViewById(R.id.customerNumber);
 
         findViewById(R.id.insert).setOnClickListener(this);
-        findViewById(R.id.run_test).setOnClickListener(this);
 
     }
 
@@ -75,8 +74,6 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
     public void onClick(View view) {
         if (view.getId() == R.id.insert)
             insertNow();
-        else
-            runCheck();
     }
 
 
@@ -228,9 +225,18 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
 
         if (item.getItemId() == android.R.id.home)
             finish();
-
+        else if (item.getItemId() == R.id.run_check)
+            runCheck();
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.order_details_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
 
 
 }

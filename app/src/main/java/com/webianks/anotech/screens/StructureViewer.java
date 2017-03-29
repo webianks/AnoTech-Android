@@ -58,7 +58,14 @@ public class StructureViewer extends AppCompatActivity {
 
         String tableName = tableNames[tableNumber];
 
-        Cursor dbCursor = sqLiteDatabase.query(tableName, null, null, null, null, null, null);
+        Cursor dbCursor = sqLiteDatabase.query(tableName,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
         String[] columnNames = dbCursor.getColumnNames();
 
       /*  int count = 0;

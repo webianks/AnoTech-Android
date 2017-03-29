@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:descendantFocusability="beforeDescendants"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -97,16 +97,6 @@
                 android:layout_marginLeft="@dimen/structure_item_padding"
                 android:layout_marginRight="@dimen/structure_item_padding"
                 android:text="@string/insert"
-                android:theme="@style/ButtonTheme" />
-
-            <Button
-                android:id="@+id/run_test"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/structure_item_padding_half"
-                android:layout_marginLeft="@dimen/structure_item_padding"
-                android:layout_marginRight="@dimen/structure_item_padding"
-                android:text="@string/run_test"
                 android:theme="@style/ButtonTheme" />
 
 

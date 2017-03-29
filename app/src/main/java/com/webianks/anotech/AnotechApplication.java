@@ -14,6 +14,8 @@ public class AnotechApplication extends Application {
     public void onCreate() {
         super.onCreate();
         // custom font for entire App
-        TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "fonts/Montserrat-Regular.ttf");
+        TypefaceUtil.overrideFont(getApplicationContext(),
+                "SERIF",
+                "fonts/Montserrat-Regular.ttf");
     }
 }

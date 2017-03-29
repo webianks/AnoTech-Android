@@ -3349,5 +3349,6 @@ CREATE TABLE `customers` (
     <string name="credit_card_fraud">Credit Card Fraud</string>
     <string name="card_number">cardNumber</string>
     <string name="amount">amount</string>
+    <string name="run_check">Run Test</string>
 
 </resources>

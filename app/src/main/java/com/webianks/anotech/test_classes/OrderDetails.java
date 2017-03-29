@@ -9,6 +9,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -54,7 +55,6 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
         priceEachET = (TextInputEditText) findViewById(R.id.priceEach);
 
         findViewById(R.id.insert).setOnClickListener(this);
-        findViewById(R.id.run_test).setOnClickListener(this);
 
     }
 
@@ -65,7 +65,19 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
         if (item.getItemId() == android.R.id.home)
             finish();
 
+        else if (item.getItemId() == R.id.run_check)
+            runCheck();
+
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.order_details_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -74,8 +86,6 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
 
         if (view.getId() == R.id.insert)
             insertNow();
-        else
-            runCheck();
 
     }
 
@@ -100,8 +110,8 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
             Log.d(OrderDetails.class.getSimpleName(),"QuantityOrdered " +quantityOrdered);
 
             String[] selectionArgs = {product_code};
-            String selection = Contract.TABLE_PRODUCTS +
-                    "." + Contract.ProductsEntry.PRODUCT_CODE + " = ? ";
+
+            String selection = Contract.TABLE_PRODUCTS + "." + Contract.ProductsEntry.PRODUCT_CODE + " = ? ";
 
             Cursor quantityInStockCursor = database.query(Contract.TABLE_PRODUCTS, null, selection, selectionArgs, null, null, null);
 

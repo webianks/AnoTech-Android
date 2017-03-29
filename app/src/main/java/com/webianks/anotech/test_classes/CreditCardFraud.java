@@ -10,6 +10,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -62,7 +63,6 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
         amountET = (TextInputEditText) findViewById(R.id.amount);
 
         findViewById(R.id.insert).setOnClickListener(this);
-        findViewById(R.id.run_test).setOnClickListener(this);
 
     }
 
@@ -71,8 +71,6 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
         if (view.getId() == R.id.insert)
             insertNow();
-        else
-            runCheck();
     }
 
     @SuppressLint("WrongConstant")
@@ -148,10 +146,8 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
             counts[0] = 0;
 
             for (int j = 1; j <= 367; j++) {
-
                 int[] mainCounts = transactionDataList.get(i).getCount();
                 counts[j] = counts[j - 1] + mainCounts[j - 1];
-
             }
 
             int start = 0;
@@ -202,11 +198,11 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
             double standardDeviation = Math.sqrt(sd);
 
-            Log.d(TAG, "Std Devation is: " + standardDeviation);
+            Log.d(TAG, "Std Deviation is: " + standardDeviation);
 
             int normalCount = (int) Math.ceil(standardDeviation + average);
 
-            Log.d(TAG, "Normal order max count: " + normalCount);
+            Log.d(TAG, "Normal payment max count: " + normalCount);
 
             for (int j = 0; j<transactionInMonthsList.get(i).getCount().size();j++) {
 
@@ -265,8 +261,16 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
         if (item.getItemId() == android.R.id.home)
             finish();
-
+        else if (item.getItemId() == R.id.run_check)
+            runCheck();
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.order_details_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
 }

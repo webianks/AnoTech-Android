@@ -61,6 +61,7 @@ public class AnotechDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS payments");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS productlines");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS products");
+
         onCreate(sqLiteDatabase);
     }
 }
