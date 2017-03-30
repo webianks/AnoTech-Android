@@ -14,7 +14,7 @@ public class AnotechDBHelper extends SQLiteOpenHelper {
 
 
     public static final String DB_NAME = "anotech.db";
-    private static final int DB_VERSION = 32;
+    private static final int DB_VERSION = 35;
     private Context context;
 
     public AnotechDBHelper(Context context) {
