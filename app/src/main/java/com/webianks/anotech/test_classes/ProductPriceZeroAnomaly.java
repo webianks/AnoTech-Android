@@ -134,7 +134,8 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
             stringBuilder.append(pair.getKey() + "," + pair.getValue() + "\n");
         }
 
-        FileUtils.createOutputFile("orders_count_on_day.csv");
+        String fileName = "orders_count_on_day_"+System.currentTimeMillis()+".csv";
+        FileUtils.createOutputFile(fileName);
         if (FileUtils.writeOutputFile(stringBuilder.toString()))
             Log.d(ProductPriceZeroAnomaly.class.getSimpleName(), "Writing csv file done.");
 
@@ -178,6 +179,7 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
 
         Intent intent = new Intent(this, ResultsActivity.class);
         intent.putExtra("type","product_price");
+        intent.putExtra("file",fileName);
         intent.putExtra("reason", getString(R.string.product_price_zero_reason)+normalOrdersCount);
         intent.putExtra("outlier", outlierText.toString());
         startActivity(intent);

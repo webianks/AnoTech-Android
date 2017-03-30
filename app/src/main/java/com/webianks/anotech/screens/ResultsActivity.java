@@ -35,6 +35,7 @@ public class ResultsActivity extends AppCompatActivity {
     private String type;
     private String reasonValue;
     private String outliersValue;
+    private String fileName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class ResultsActivity extends AppCompatActivity {
         type = getIntent().getStringExtra("type");
         reasonValue = getIntent().getStringExtra("reason");
         outliersValue = getIntent().getStringExtra("outlier");
+        fileName = getIntent().getStringExtra("file");
 
         reason.setText(reasonValue);
         outliers.setText(outliersValue);
@@ -69,12 +71,6 @@ public class ResultsActivity extends AppCompatActivity {
     }
 
     private void setChart() {
-
-        String fileName = " ";
-        if (type.equals("orders"))
-            fileName = "orders_date_difference.csv";
-        else if (type.equals("product_price"))
-            fileName = "orders_count_on_day.csv";
 
         File root = new File(Environment.getExternalStorageDirectory(), "Anotech");
         File filepath = new File(root, fileName);

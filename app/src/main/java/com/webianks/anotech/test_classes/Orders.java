@@ -143,7 +143,8 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
         }
 
-        FileUtils.createOutputFile("orders_date_difference.csv");
+        String fileName = "orders_date_difference_"+System.currentTimeMillis()+".csv";
+        FileUtils.createOutputFile(fileName);
         if (FileUtils.writeOutputFile(stringBuilder.toString()))
             Log.d(Orders.class.getSimpleName(), "Writing csv file done.");
 
@@ -184,6 +185,7 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
         Intent intent = new Intent(this, ResultsActivity.class);
         intent.putExtra("type", "orders");
+        intent.putExtra("file", fileName);
         intent.putExtra("reason", getString(R.string.order_shipping_reason)+allowedDays);
         intent.putExtra("outlier", outlierText.toString());
         startActivity(intent);
