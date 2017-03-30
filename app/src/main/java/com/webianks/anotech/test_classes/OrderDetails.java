@@ -52,7 +52,6 @@ public class OrderDetails extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         orderLineNumberET = (TextInputEditText) findViewById(R.id.orderLineNumber);
         orderNumnberET = (TextInputEditText) findViewById(R.id.orderNumber);
         productCodeET = (TextInputEditText) findViewById(R.id.productCode);

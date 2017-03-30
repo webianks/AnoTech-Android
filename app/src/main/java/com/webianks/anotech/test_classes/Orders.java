@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.webianks.anotech.FileUtils;
 import com.webianks.anotech.R;
+import com.webianks.anotech.data.DateDifference;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
 import com.webianks.anotech.database.Projections;
@@ -106,7 +107,7 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
         StringBuilder stringBuilder = new StringBuilder();
         List<Long> listOfDays = new ArrayList<>();
-        Map<Long, String> map = new HashMap<>();
+        List<DateDifference> dateDifferenceList = new ArrayList<>();
         StringBuilder outlierText = new StringBuilder();
 
         while (cursor.moveToNext()) {
@@ -139,11 +140,16 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
             //Log.d(Orders.class.getSimpleName(),"OrderNumber: "+orderNumber+" -- Days: " + days);
 
             stringBuilder.append(orderNumber + "," + days + "\n");
-            map.put(days, orderNumber);
+
+            DateDifference dateDifference = new DateDifference();
+            dateDifference.setDays(days);
+            dateDifference.setOrderNumber(orderNumber);
+
+            dateDifferenceList.add(dateDifference);
 
         }
 
-        String fileName = "orders_date_difference_"+System.currentTimeMillis()+".csv";
+        String fileName = "orders_date_difference_" + System.currentTimeMillis() + ".csv";
         FileUtils.createOutputFile(fileName);
         if (FileUtils.writeOutputFile(stringBuilder.toString()))
             Log.d(Orders.class.getSimpleName(), "Writing csv file done.");
@@ -172,12 +178,11 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
         System.out.println("Non anomalous days count: " + allowedDays);
 
-        Iterator it = map.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            if ((long) pair.getKey() > allowedDays){
-                Log.d(Orders.class.getSimpleName(), "Order shipping anomaly in order: " + pair.getValue() + " with days: " + pair.getKey());
-                outlierText.append("Order shipping anomaly in order: " + pair.getValue() + " with days: " + pair.getKey()+"\n");
+
+        for (int i = 0; i < dateDifferenceList.size(); i++) {
+            if ( dateDifferenceList.get(i).getDays() > allowedDays) {
+                Log.d(Orders.class.getSimpleName(), "Order shipping anomaly in order: " + dateDifferenceList.get(i).getOrderNumber() + " with days: " + dateDifferenceList.get(i).getDays());
+                outlierText.append("Order shipping anomaly in order: " + dateDifferenceList.get(i).getOrderNumber() + " with days: " + dateDifferenceList.get(i).getDays() + "\n");
             }
         }
 
@@ -186,7 +191,7 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
         Intent intent = new Intent(this, ResultsActivity.class);
         intent.putExtra("type", "orders");
         intent.putExtra("file", fileName);
-        intent.putExtra("reason", getString(R.string.order_shipping_reason)+allowedDays);
+        intent.putExtra("reason", getString(R.string.order_shipping_reason) + allowedDays);
         intent.putExtra("outlier", outlierText.toString());
         startActivity(intent);
 
@@ -263,7 +268,7 @@ public class Orders extends AppCompatActivity implements View.OnClickListener {
 
         }
 
-        protected Void doInBackground(Void...values) {
+        protected Void doInBackground(Void... values) {
 
             runCheck();
             return null;
