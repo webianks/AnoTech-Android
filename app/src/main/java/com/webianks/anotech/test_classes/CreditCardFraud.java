@@ -300,7 +300,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
             if (code > 0)
                 Toast.makeText(this, getString(R.string.done), Toast.LENGTH_LONG).show();
             else
-                Log.d(Orders.class.getSimpleName(), "insertNow: " + code);
+                Log.d(CreditCardFraud.class.getSimpleName(), "insertNow: " + code);
 
             database.close();
 

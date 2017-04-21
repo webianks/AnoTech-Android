@@ -225,7 +225,7 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
             if (code > 0)
                 Toast.makeText(this, getString(R.string.done), Toast.LENGTH_LONG).show();
             else
-                Log.d(Orders.class.getSimpleName(), "insertNow: " + code);
+                Log.d(ProductPriceZeroAnomaly.class.getSimpleName(), "insertNow: " + code);
 
             database.close();
 
