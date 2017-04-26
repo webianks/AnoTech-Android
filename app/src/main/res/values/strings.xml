@@ -3384,5 +3384,6 @@ CREATE TABLE `transactions` (
     <string name="pnrNumber">pnrNumber</string>
     <string name="transaction_number">transactionNumber</string>
     <string name="payment_mode">paymentMode</string>
+    <string name="wrong_transactions_reason">No original ticket was booked but the transaction was made so this is anomaly.</string>
 
 </resources>

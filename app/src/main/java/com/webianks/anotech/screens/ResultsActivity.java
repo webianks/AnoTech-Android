@@ -63,7 +63,7 @@ public class ResultsActivity extends AppCompatActivity {
         reason.setText(reasonValue);
         outliers.setText(outliersValue);
 
-        if (type.equals("OrderDetails") || type.equals("credit_card")) {
+        if (type.equals("wrong_transactions") || type.equals("credit_card")) {
             mChart.setVisibility(View.GONE);
         } else
             setChart();

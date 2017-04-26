@@ -69,4 +69,14 @@ public class Contract {
 
     }
 
+    public static final class TicketEntry implements BaseColumns {
+
+        public static final String PNR_NUMBER = "pnr_number";
+        public static final String TRAIN_NUMBER = "train_number";
+        public static final String TRANSACTION_NUMBER = "transaction_number";
+        public static final String FROM = "from";
+        public static final String TO = "to";
+
+    }
+
 }

@@ -3,6 +3,8 @@ package com.webianks.anotech.test_classes;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import com.webianks.anotech.R;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
+import com.webianks.anotech.screens.ResultsActivity;
 
 /**
  * Created by R Ankit on 26-04-2017.
@@ -76,11 +79,46 @@ public class WrongTransaction extends AppCompatActivity implements View.OnClickL
         AnotechDBHelper dbHelper = new AnotechDBHelper(this);
         SQLiteDatabase database = dbHelper.getReadableDatabase();
 
+        Cursor cursor = database.query(Contract.TABLE_TRANSACTIONS, null,
+                null, null, null, null, null);
 
+        boolean found = false;
+        StringBuilder outlierText = new StringBuilder();
 
+        while (cursor.moveToNext()) {
+
+            int transaction_number_index = cursor.getColumnIndex(Contract.TransactionEntry.TRANSACTION_NUMBER);
+            String transactionNumber = cursor.getString(transaction_number_index);
+
+            String selection = Contract.TABLE_TICKETS + "." + Contract.TicketEntry.TRANSACTION_NUMBER + " = ? ";
+
+            String[] selectionArgs = {transactionNumber};
+            Cursor cursor_ticket = database.query(Contract.TABLE_TICKETS, null,
+                    selection, selectionArgs, null, null, null);
+
+            if (!cursor_ticket.moveToFirst()) {
+                Log.d(WrongTransaction.class.getSimpleName(), "Wrong transaction: " + transactionNumber);
+
+                outlierText.append("Wrong transaction: " + transactionNumber + "\n");
+                found = true;
+            }
+
+            cursor_ticket.close();
+
+        }
+        cursor.close();
+
+        if (!found)
+            Toast.makeText(this, "Data looks good.", Toast.LENGTH_LONG).show();
+        else {
+            Intent intent = new Intent(this, ResultsActivity.class);
+            intent.putExtra("type", "wrong_transactions");
+            intent.putExtra("reason", getString(R.string.wrong_transactions_reason));
+            intent.putExtra("outlier", outlierText.toString());
+            startActivity(intent);
+        }
 
     }
-
 
 
     private class DatabaseTask extends AsyncTask<Void, Void, Void> {
