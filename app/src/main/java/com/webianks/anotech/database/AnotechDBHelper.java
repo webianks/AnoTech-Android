@@ -12,8 +12,7 @@ import com.webianks.anotech.R;
 
 public class AnotechDBHelper extends SQLiteOpenHelper {
 
-
-    public static final String DB_NAME = "anotech.db";
+    private static final String DB_NAME = "anotech.db";
     private static final int DB_VERSION = 35;
     private Context context;
 
@@ -34,6 +33,8 @@ public class AnotechDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(context.getString(R.string.create_payments));
         sqLiteDatabase.execSQL(context.getString(R.string.create_product_lines));
         sqLiteDatabase.execSQL(context.getString(R.string.create_products));
+        sqLiteDatabase.execSQL(context.getString(R.string.create_table_tickets));
+        sqLiteDatabase.execSQL(context.getString(R.string.create_table_transactions));
 
         //insert_into_tables
         sqLiteDatabase.execSQL(context.getString(R.string.insert_customers));
@@ -46,7 +47,6 @@ public class AnotechDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(context.getString(R.string.insert_payments));
         sqLiteDatabase.execSQL(context.getString(R.string.insert_product_lines));
         sqLiteDatabase.execSQL(context.getString(R.string.insert_products));
-
 
     }
 
@@ -61,6 +61,8 @@ public class AnotechDBHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS payments");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS productlines");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS products");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS tickets");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS transactions");
 
         onCreate(sqLiteDatabase);
     }

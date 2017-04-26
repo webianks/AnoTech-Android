@@ -2,7 +2,7 @@
     <string name="app_name">Anotech</string>
     <string name="table_name">Administration</string>
     <string name="tables_intro">This provides information on the various tables present in the database.</string>
-    <string name="activity_happened">Outlier has occured in the</string>
+    <string name="activity_happened">Outlier has occurred in the</string>
     <string name="target">OrderDetails</string>
     <string name="anomaly_intro">Here you can select type of anomaly case you want to test.</string>
     <string name="order_number">orderNumber</string>
@@ -47,6 +47,31 @@ CREATE TABLE `customers` (
   CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`salesRepEmployeeNumber`) REFERENCES `employees` (`employeeNumber`)
 );
     </string>
+
+
+    <string name="create_table_tickets">
+
+CREATE TABLE `tickets` (
+  `pnr_number` int(50) NOT NULL,
+  `transaction_number` int(50) NOT NULL,
+  `train_number` varchar(10) NOT NULL,
+  `from` varchar(10) NOT NULL,
+  `to` varchar(10) NOT NULL
+);
+    </string>
+
+
+    <string name="create_table_transactions">
+
+CREATE TABLE `transactions` (
+  `pnr_number` int(50) NOT NULL,
+  `transaction_number` int(50) NOT NULL,
+  `amount` int(50) NOT NULL,
+  `payment_mode` varchar(50) NOT NULL
+);
+    </string>
+
+
 
     <string name="create_employees">
 
