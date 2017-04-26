@@ -13,7 +13,7 @@ import com.webianks.anotech.R;
 public class AnotechDBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "anotech.db";
-    private static final int DB_VERSION = 35;
+    private static final int DB_VERSION = 36;
     private Context context;
 
     public AnotechDBHelper(Context context) {

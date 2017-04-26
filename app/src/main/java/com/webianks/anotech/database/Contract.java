@@ -16,6 +16,8 @@ public class Contract {
     public static final String TABLE_PAYMENTS = "payments";
     public static final String TABLE_PRODUCT_LINES = "productlines";
     public static final String TABLE_PRODUCTS = "products";
+    public static final String TABLE_TRANSACTIONS = "transactions";
+    public static final String TABLE_TICKETS = "tickets";
 
 
     public static final class OrderDetailsEntry implements BaseColumns {
@@ -56,5 +58,15 @@ public class Contract {
 
     }
 
+
+
+    public static final class TransactionEntry implements BaseColumns {
+
+        public static final String PNR_NUMBER = "pnr_number";
+        public static final String AMOUNT = "amount";
+        public static final String TRANSACTION_NUMBER = "transaction_number";
+        public static final String MODE = "payment_mode";
+
+    }
 
 }

@@ -3380,5 +3380,9 @@ CREATE TABLE `transactions` (
     <string name="order_shipping_reason">OrderDate and ShippedDate does not fall in allowed day difference value: </string>
     <string name="product_price_zero_reason">There may be anomaly because no of orders in particular day doesn\'t fall in normal count: </string>
     <string name="credit_fraud_reason">There may be credit card fraud becausse card uses doesn\'t follow normal behaviour of  :</string>
+    <string name="wrong_transactions">Wrong Transactions</string>
+    <string name="pnrNumber">pnrNumber</string>
+    <string name="transaction_number">transactionNumber</string>
+    <string name="payment_mode">paymentMode</string>
 
 </resources>

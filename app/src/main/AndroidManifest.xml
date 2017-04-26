@@ -37,6 +37,10 @@
             android:name=".test_classes.CreditCardFraud"
             android:label="@string/credit_card_fraud" />
 
+        <activity
+            android:name=".test_classes.WrongTransaction"
+            android:label="@string/wrong_transactions" />
+
     </application>
 
 </manifest>
