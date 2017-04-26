@@ -25,7 +25,7 @@ import java.util.List;
 public class Testing extends Fragment implements TestingAdapter.ItemClickListener {
 
     private RecyclerView testingRecyclerView;
-    private List<String> testingList = new ArrayList<>();
+
 
     public static Testing newInstance() {
 
@@ -51,6 +51,7 @@ public class Testing extends Fragment implements TestingAdapter.ItemClickListene
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         testingRecyclerView.setLayoutManager(linearLayoutManager);
 
+        List<String> testingList = new ArrayList<>();
         testingList.add("Product Price Zero Anomaly");
         testingList.add("Credit Card Fraud");
 
@@ -63,10 +64,10 @@ public class Testing extends Fragment implements TestingAdapter.ItemClickListene
     @Override
     public void itemClicked(int position) {
 
-        if(testingList.get(position).equals("Product Price Zero Anomaly"))
+        if(position == 0)
             startActivity(new Intent(getActivity(), ProductPriceZeroAnomaly.class));
 
-        else if(testingList.get(position).equals("Credit Card Fraud"))
+        else if(position == 1)
             startActivity(new Intent(getActivity(), CreditCardFraud.class));
     }
 }
