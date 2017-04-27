@@ -71,6 +71,28 @@ CREATE TABLE `transactions` (
 );
     </string>
 
+    <string name="create_table_movie_tickets">
+
+CREATE TABLE `movie_tickets` (
+  `ticket_number` int(50) NOT NULL,
+  `seat_number` varchar(50) NOT NULL,
+  `movie` varchar(50) NOT NULL,
+  `audi` varchar(10) NOT NULL
+);
+    </string>
+
+
+    <string name="create_table_movie_transactions">
+
+CREATE TABLE `movie_transactions` (
+  `ticket_number` int(50) NOT NULL,
+  `transaction_number` int(50) NOT NULL,
+  `amount` int(50) NOT NULL,
+  `payment_mode` varchar(50) NOT NULL
+);
+    </string>
+
+
 
 
     <string name="create_employees">
@@ -3385,5 +3407,11 @@ CREATE TABLE `transactions` (
     <string name="transaction_number">transactionNumber</string>
     <string name="payment_mode">paymentMode</string>
     <string name="wrong_transactions_reason">No original ticket was booked but the transaction was made so this is anomaly.</string>
+    <string name="wrong_ticket_reason">Wrong ticket booking history as corresponding payment was not made.</string>
+    <string name="wrong_ticket">Wrong Ticket</string>
+    <string name="ticketNumber">ticketNumber</string>
+    <string name="seat_number">seatNumber</string>
+    <string name="movie">movie</string>
+    <string name="audi">audi</string>
 
 </resources>

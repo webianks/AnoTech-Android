@@ -24,8 +24,6 @@ import java.util.List;
 public class DataStructure extends Fragment implements StructureAdapter.ItemClickListener {
 
     private RecyclerView recyclerView;
-    private List<String> structureList = new ArrayList<String>();
-
     public static DataStructure newInstance() {
 
         Bundle args = new Bundle();
@@ -50,7 +48,7 @@ public class DataStructure extends Fragment implements StructureAdapter.ItemClic
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
+        List<String> structureList = new ArrayList<String>();
         structureList.add("Employees");
         structureList.add("Offices");
         structureList.add("Products");

@@ -18,6 +18,8 @@ public class Contract {
     public static final String TABLE_PRODUCTS = "products";
     public static final String TABLE_TRANSACTIONS = "transactions";
     public static final String TABLE_TICKETS = "tickets";
+    public static final String TABLE_MOVIE_TICKETS = "movie_tickets";
+    public static final String TABLE_MOIVE_TRANSACTIONS = "movie_transactions";
 
 
     public static final class OrderDetailsEntry implements BaseColumns {
@@ -76,6 +78,24 @@ public class Contract {
         public static final String TRANSACTION_NUMBER = "transaction_number";
         public static final String FROM = "from";
         public static final String TO = "to";
+
+    }
+
+    public static final class MovieTransactionEntry implements BaseColumns {
+
+        public static final String TICKET_NUMBER = "ticket_number";
+        public static final String AMOUNT = "amount";
+        public static final String TRANSACTION_NUMBER = "transaction_number";
+        public static final String MODE = "payment_mode";
+
+    }
+
+    public static final class MovieTicketEntry implements BaseColumns {
+
+        public static final String TICKET_NUMBER = "ticket_number";
+        public static final String SEAT_NUMBER = "seat_number";
+        public static final String MOVIE = "movie";
+        public static final String AUDI = "audi";
 
     }
 

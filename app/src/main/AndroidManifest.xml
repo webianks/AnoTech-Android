@@ -41,6 +41,11 @@
             android:name=".test_classes.WrongTransaction"
             android:label="@string/wrong_transactions" />
 
+
+        <activity
+            android:name=".test_classes.WrongTicket"
+            android:label="@string/wrong_ticket" />
+
     </application>
 
 </manifest>
