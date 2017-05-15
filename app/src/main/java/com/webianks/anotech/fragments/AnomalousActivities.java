@@ -49,9 +49,14 @@ public class AnomalousActivities extends Fragment implements AnomaliesAdapter.It
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerview.setLayoutManager(linearLayoutManager);
 
-        getAnomalies();
-
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getAnomalies();
     }
 
     private void getAnomalies() {

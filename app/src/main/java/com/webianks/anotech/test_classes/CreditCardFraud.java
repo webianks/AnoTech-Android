@@ -135,16 +135,13 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
                         transactionDataList.get(i).setDayNumber(DAY_OF_YEAR);
                         matched = true;
                     }
-
                 }
 
                 if (!matched) {
-
                     TransactionData transactionData = new TransactionData();
                     transactionData.setCardNumber(cardNumber);
                     transactionData.setDayNumber(DAY_OF_YEAR);
                     transactionDataList.add(transactionData);
-
                 }
 
             }
@@ -246,13 +243,21 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
             AnotechDBHelper dbHelper = new AnotechDBHelper(this);
             SQLiteDatabase databaseWritable = dbHelper.getWritableDatabase();
 
+            String selection = Contract.TABLE_ANOMALY + "." + Contract.AnomalyEntry.TYPE + " = ?";
+            String[] selectionArgs = new String[]{"credit_card"};
+
+            Cursor cursor = databaseWritable.query(Contract.TABLE_ANOMALY, null, selection, selectionArgs, null, null, null);
+
             ContentValues contentValues = new ContentValues();
             contentValues.put(Contract.AnomalyEntry.TYPE, "credit_card");
             contentValues.put(Contract.AnomalyEntry.FILE, "none");
             contentValues.put(Contract.AnomalyEntry.REASON, getString(R.string.credit_fraud_reason) + normalCount);
             contentValues.put(Contract.AnomalyEntry.OUTLIER, outlierText.toString());
 
-            long code = databaseWritable.insert(Contract.TABLE_ANOMALY, null, contentValues);
+            if (cursor.moveToFirst())
+                databaseWritable.update(Contract.TABLE_ANOMALY, contentValues, selection, selectionArgs);
+            else
+                databaseWritable.insert(Contract.TABLE_ANOMALY, null, contentValues);
 
         }
 
@@ -265,7 +270,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog.show();
+            //progressDialog.show();
 
         }
 
@@ -276,7 +281,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
         }
 
         protected void onPostExecute(Void result) {
-            progressDialog.dismiss();
+            //progressDialog.dismiss();
         }
     }
 

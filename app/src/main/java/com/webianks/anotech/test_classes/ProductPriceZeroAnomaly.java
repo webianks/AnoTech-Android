@@ -5,13 +5,11 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -25,7 +23,6 @@ import com.webianks.anotech.FileUtils;
 import com.webianks.anotech.R;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
-import com.webianks.anotech.screens.ResultsActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -217,7 +214,16 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
         contentValues.put(Contract.AnomalyEntry.REASON, getString(R.string.product_price_zero_reason) + normalOrdersCount);
         contentValues.put(Contract.AnomalyEntry.OUTLIER, outlierText.toString());
 
-        long code = databaseWritable.insert(Contract.TABLE_ANOMALY, null, contentValues);
+        String selection = Contract.TABLE_ANOMALY + "." + Contract.AnomalyEntry.TYPE + " = ?";
+        String[] selectionArgs = new String[]{"product_price"};
+
+        Cursor cursorNew = databaseWritable.query(Contract.TABLE_ANOMALY, null, selection, selectionArgs, null, null, null);
+
+
+        if (cursorNew.moveToFirst())
+            databaseWritable.update(Contract.TABLE_ANOMALY, contentValues, selection, selectionArgs);
+        else
+            databaseWritable.insert(Contract.TABLE_ANOMALY, null, contentValues);
 
     }
 
@@ -281,7 +287,7 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
 
                 long code2 = database.insert(Contract.TABLE_ORDER_DETAILS, null, contentValues2);
 
-                if (code2 > 0){
+                if (code2 > 0) {
 
                     Toast.makeText(this, getString(R.string.done), Toast.LENGTH_LONG).show();
                     new DatabaseTask().execute();
@@ -315,7 +321,7 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog.show();
+            //progressDialog.show();
 
         }
 
@@ -326,7 +332,7 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
         }
 
         protected void onPostExecute(Void result) {
-            progressDialog.dismiss();
+            //progressDialog.dismiss();
         }
     }
 
