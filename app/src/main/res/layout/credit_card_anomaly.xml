@@ -9,9 +9,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="?attr/colorPrimary" />
-
+        android:background="?attr/colorPrimary"
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,82 +22,48 @@
             android:orientation="vertical">
 
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/structure_item_padding">
+                android:layout_margin="16dp"
+                android:orientation="horizontal">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/customerNumber"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/complete_order"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/customer_number"
-                    android:inputType="number" />
+                    android:text="@string/complete_order" />
 
-            </android.support.design.widget.TextInputLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/structure_item_padding"
-                android:layout_marginLeft="@dimen/structure_item_padding"
-                android:layout_marginRight="@dimen/structure_item_padding">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/cardNumber"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/product_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/card_number"
-                    android:inputType="number" />
+                    android:layout_below="@id/complete_order"
+                    android:text="@string/product_name"
+                    android:textColor="@color/colorAccent" />
 
-            </android.support.design.widget.TextInputLayout>
 
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/structure_item_padding_half"
-                android:layout_marginLeft="@dimen/structure_item_padding"
-                android:layout_marginRight="@dimen/structure_item_padding">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/paymentDate"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/with_bill"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/required_date"
-                    android:inputType="date" />
+                    android:layout_below="@id/complete_order"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_toRightOf="@id/product_name"
+                    android:text="@string/with_bill" />
 
-            </android.support.design.widget.TextInputLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/structure_item_padding_half"
-                android:layout_marginLeft="@dimen/structure_item_padding"
-                android:layout_marginRight="@dimen/structure_item_padding">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/amount"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/bill"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/amount"
-                    android:inputType="number" />
+                    android:layout_below="@id/complete_order"
+                    android:layout_toRightOf="@id/with_bill"
+                    android:text="@string/bill"
+                    android:textColor="@color/colorAccent" />
 
-            </android.support.design.widget.TextInputLayout>
 
-
-            <Button
-                android:id="@+id/insert"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/structure_item_padding_half"
-                android:layout_marginLeft="@dimen/structure_item_padding"
-                android:layout_marginRight="@dimen/structure_item_padding"
-                android:text="@string/insert"
-                android:theme="@style/ButtonTheme" />
-
+            </RelativeLayout>
 
         </LinearLayout>
 

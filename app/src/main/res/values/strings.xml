@@ -3413,8 +3413,8 @@ CREATE TABLE `movie_transactions` (
     <string name="audi">audi</string>
     <string name="i_phone">Apple iPhone 7</string>
     <string name="mi">Xiomi Mi Band 2</string>
-    <string name="price_apple">₹ 0</string>
-    <string name="price_mi">₹ 1999</string>
+    <string name="price_apple">₹0</string>
+    <string name="price_mi">₹1999</string>
     <string name="buy">BUY</string>
 
     <string name="create_anomalies">
@@ -3426,5 +3426,9 @@ CREATE TABLE `movie_transactions` (
 );
 
 </string>
+    <string name="complete_order">Please complete order for the product: </string>
+    <string name="product_name">product_name </string>
+    <string name="with_bill"> with bill of </string>
+    <string name="bill">₹500</string>
 
 </resources>

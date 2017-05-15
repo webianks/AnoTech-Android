@@ -40,10 +40,6 @@ import java.util.Map;
 public class CreditCardFraud extends AppCompatActivity implements View.OnClickListener {
 
 
-    private TextInputEditText customerNumberET;
-    private TextInputEditText cardNumberET;
-    private TextInputEditText paymentDateET;
-    private TextInputEditText amountET;
     private String TAG = CreditCardFraud.class.getSimpleName();
     private ProgressDialog progressDialog;
     private boolean found;
@@ -63,13 +59,6 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        customerNumberET = (TextInputEditText) findViewById(R.id.customerNumber);
-        cardNumberET = (TextInputEditText) findViewById(R.id.cardNumber);
-        paymentDateET = (TextInputEditText) findViewById(R.id.paymentDate);
-        amountET = (TextInputEditText) findViewById(R.id.amount);
-
-        findViewById(R.id.insert).setOnClickListener(this);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Anomaly Test");
@@ -271,10 +260,10 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
     private void insertNow() {
 
-        String card_number = cardNumberET.getText().toString();
-        String amount = amountET.getText().toString();
-        String payment_date = paymentDateET.getText().toString();
-        String customer_number = customerNumberET.getText().toString();
+        String card_number = "";
+        String amount = "";
+        String payment_date = "";
+        String customer_number = "";
 
 
         if (card_number.trim().length() > 0 &&
@@ -303,7 +292,6 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
                 Log.d(CreditCardFraud.class.getSimpleName(), "insertNow: " + code);
 
             database.close();
-
         }
 
     }
