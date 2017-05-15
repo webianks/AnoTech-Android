@@ -109,7 +109,7 @@ public class WrongTransaction extends AppCompatActivity implements View.OnClickL
         cursor.close();
 
         if (!found)
-            Toast.makeText(this, "Data looks good.", Toast.LENGTH_LONG).show();
+            Log.d(TAG, "Data looks good.");
         else {
             Intent intent = new Intent(this, ResultsActivity.class);
             intent.putExtra("type", "wrong_transactions");
@@ -127,8 +127,6 @@ public class WrongTransaction extends AppCompatActivity implements View.OnClickL
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog.show();
-
         }
 
         protected Void doInBackground(Void... values) {
@@ -138,7 +136,6 @@ public class WrongTransaction extends AppCompatActivity implements View.OnClickL
         }
 
         protected void onPostExecute(Void result) {
-            progressDialog.dismiss();
         }
     }
 
