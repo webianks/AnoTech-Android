@@ -14,6 +14,7 @@ public class Contract {
     public static final String TABLE_ORDER_DETAILS = "orderdetails";
     public static final String TABLE_ORDERS = "orders";
     public static final String TABLE_PAYMENTS = "payments";
+    public static final String TABLE_ANOMALY = "anomalies";
     public static final String TABLE_PRODUCT_LINES = "productlines";
     public static final String TABLE_PRODUCTS = "products";
     public static final String TABLE_TRANSACTIONS = "transactions";
@@ -99,4 +100,12 @@ public class Contract {
 
     }
 
+    public class AnomalyEntry implements BaseColumns{
+
+        public static final String TYPE = "type";
+        public static final String FILE = "file";
+        public static final String REASON = "reason";
+        public static final String OUTLIER = "outlier";
+
+    }
 }

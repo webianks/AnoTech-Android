@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new Testing(), "Testing");
         //adapter.addFragment(new AnomalousActivities(), "Activities");
-        adapter.addFragment(new AnomalousActivities(), "Activities");
+        adapter.addFragment(new AnomalousActivities(), "Anomalies");
         viewPager.setAdapter(adapter);
     }
 }

@@ -16,28 +16,28 @@ import java.util.List;
  * Created by R Ankit on 21-03-2017.
  */
 
-public class StructureAdapter extends RecyclerView.Adapter<StructureAdapter.VH> {
+public class AnomaliesAdapter extends RecyclerView.Adapter<AnomaliesAdapter.VH> {
 
-    private List<String> tableNames;
+    private List<Anomaly> anomalies;
     private Context context;
     private ItemClickListener itemClickListener;
 
-    public StructureAdapter(Context context, List<String> tableNames) {
+    public AnomaliesAdapter(Context context, List<Anomaly> anomalies) {
         this.context = context;
-        this.tableNames = tableNames;
+        this.anomalies = anomalies;
     }
 
     @Override
-    public StructureAdapter.VH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AnomaliesAdapter.VH onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.single_structure_item, parent, false);
-        StructureAdapter.VH vh = new StructureAdapter.VH(view);
+        View view = LayoutInflater.from(context).inflate(R.layout.single_activity_happened_style, parent, false);
+        AnomaliesAdapter.VH vh = new AnomaliesAdapter.VH(view);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(StructureAdapter.VH holder, int position) {
-        holder.tableName.setText(tableNames.get(position));
+    public void onBindViewHolder(AnomaliesAdapter.VH holder, int position) {
+       holder.target.setText(anomalies.get(position).getType());
     }
 
 
@@ -49,31 +49,31 @@ public class StructureAdapter extends RecyclerView.Adapter<StructureAdapter.VH> 
 
     @Override
     public int getItemCount() {
-        return tableNames.size();
+        return anomalies.size();
     }
 
     class VH extends RecyclerView.ViewHolder {
 
-        TextView tableName;
+        TextView target;
 
         VH(View itemView) {
             super(itemView);
 
-            tableName = (TextView) itemView.findViewById(R.id.name);
+            target = (TextView) itemView.findViewById(R.id.target);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     if (itemClickListener!=null)
-                        itemClickListener.itemClicked(getAdapterPosition());
+                        itemClickListener.itemClicked(anomalies.get(getAdapterPosition()));
                 }
             });
         }
     }
 
     public interface ItemClickListener{
-        void itemClicked(int position);
+        void itemClicked(Anomaly anomaly);
     }
 
 

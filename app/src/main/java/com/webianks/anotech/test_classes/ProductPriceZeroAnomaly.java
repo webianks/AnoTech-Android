@@ -1,8 +1,10 @@
 package com.webianks.anotech.test_classes;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.webianks.anotech.FileUtils;
@@ -24,6 +27,7 @@ import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
 import com.webianks.anotech.screens.ResultsActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,13 +38,6 @@ import java.util.Map;
 
 public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.OnClickListener {
 
-    private TextInputEditText orderNumberET;
-    private TextInputEditText orderDateET;
-    private TextInputEditText requiredDateET;
-    private TextInputEditText shippedDateET;
-    private TextInputEditText statusET;
-    private TextInputEditText commentsET;
-    private TextInputEditText customerNumberET;
     private String TAG = ProductPriceZeroAnomaly.class.getSimpleName();
     private ProgressDialog progressDialog;
 
@@ -60,16 +57,11 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        orderNumberET = (TextInputEditText) findViewById(R.id.orderNumber);
-        orderDateET = (TextInputEditText) findViewById(R.id.orderDate);
-        requiredDateET = (TextInputEditText) findViewById(R.id.requiredDate);
-        shippedDateET = (TextInputEditText) findViewById(R.id.shippedDate);
-        statusET = (TextInputEditText) findViewById(R.id.status);
-        commentsET = (TextInputEditText) findViewById(R.id.comments);
-        customerNumberET = (TextInputEditText) findViewById(R.id.customerNumber);
+        Button buyMiBT = (Button) findViewById(R.id.buyMiBand);
+        Button buyAppleBT = (Button) findViewById(R.id.buyApple);
 
-        findViewById(R.id.insert).setOnClickListener(this);
-
+        buyAppleBT.setOnClickListener(this);
+        buyMiBT.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Anomaly Test");
@@ -79,8 +71,48 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.insert)
-            insertNow();
+        if (view.getId() == R.id.buyApple)
+            buyApple();
+        if (view.getId() == R.id.buyMiBand)
+            buyMiBand();
+    }
+
+    private void buyMiBand() {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Buy")
+                .setMessage("Are you sure you want to buy this item?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue
+                        insertNow("QWEBDF", "1999", "Xiomi Mi Band 2");
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .show();
+    }
+
+    private void buyApple() {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Buy")
+                .setMessage("Are you sure you want to buy this item?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue
+                        insertNow("ADCSCS", "0", "Apple iPhone 7");
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .show();
     }
 
 
@@ -105,7 +137,7 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
 
             Calendar calender = Calendar.getInstance();
             calender.set(Calendar.DAY_OF_MONTH, Integer.valueOf(splittedOrderDate[2]));
-            calender.set(Calendar.MONTH, Integer.valueOf(splittedOrderDate[1])-1);
+            calender.set(Calendar.MONTH, Integer.valueOf(splittedOrderDate[1]) - 1);
             calender.set(Calendar.YEAR, Integer.valueOf(splittedOrderDate[0]));
 
             long orderDateInMiliseconds = calender.getTimeInMillis();
@@ -134,7 +166,7 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
             stringBuilder.append(pair.getKey() + "," + pair.getValue() + "\n");
         }
 
-        String fileName = "orders_count_on_day_"+System.currentTimeMillis()+".csv";
+        String fileName = "orders_count_on_day_" + System.currentTimeMillis() + ".csv";
         FileUtils.createOutputFile(fileName);
         if (FileUtils.writeOutputFile(stringBuilder.toString()))
             Log.d(ProductPriceZeroAnomaly.class.getSimpleName(), "Writing csv file done.");
@@ -170,62 +202,96 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
         for (Object o : dateCountMap.entrySet()) {
             Map.Entry pair = (Map.Entry) o;
             int value = (int) pair.getValue();
-            if ( value > (normalOrdersCount+1)){
+            if (value > (normalOrdersCount + 1)) {
                 Log.d(TAG, "Abnormal count of orders on date : " + pair.getKey() + " with orders as : " + pair.getValue());
-                outlierText.append("Abnormal count of orders on date : " + pair.getKey() + " with orders as : " + pair.getValue()+"\n");
+                outlierText.append("Abnormal count of orders on date : " + pair.getKey() + " with orders as : " + pair.getValue() + "\n");
             }
 
         }
 
-        Intent intent = new Intent(this, ResultsActivity.class);
-        intent.putExtra("type","product_price");
-        intent.putExtra("file",fileName);
-        intent.putExtra("reason", getString(R.string.product_price_zero_reason)+normalOrdersCount);
-        intent.putExtra("outlier", outlierText.toString());
-        startActivity(intent);
+        SQLiteDatabase databaseWritable = dbHelper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Contract.AnomalyEntry.TYPE, "product_price");
+        contentValues.put(Contract.AnomalyEntry.FILE, fileName);
+        contentValues.put(Contract.AnomalyEntry.REASON, getString(R.string.product_price_zero_reason) + normalOrdersCount);
+        contentValues.put(Contract.AnomalyEntry.OUTLIER, outlierText.toString());
+
+        long code = databaseWritable.insert(Contract.TABLE_ANOMALY, null, contentValues);
 
     }
 
 
-    private void insertNow() {
+    private void insertNow(String product_code, String price_each, String comment) {
 
-        String order_number = orderNumberET.getText().toString();
-        String order_date = orderDateET.getText().toString();
-        String required_date = requiredDateET.getText().toString();
-        String shipped_date = shippedDateET.getText().toString();
-        String status = statusET.getText().toString();
-        String comment = commentsET.getText().toString();
-        String customer_number = customerNumberET.getText().toString();
+        String shipped_date = " ";
+        String status = "in process";
 
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String order_date = df.format(c.getTime());
 
-        if (order_number.trim().length() > 0 &&
-                order_date.trim().length() > 0 &&
+        c.add(Calendar.DAY_OF_YEAR, 7);
+
+        String required_date = df.format(c.getTime());
+
+        if (order_date.trim().length() > 0 &&
                 required_date.trim().length() > 0 &&
-                shipped_date.trim().length() > 0 &&
-                status.trim().length() > 0 &&
-                customer_number.trim().length() > 0
+                status.trim().length() > 0
                 ) {
-
 
             AnotechDBHelper dbHelper = new AnotechDBHelper(this);
             SQLiteDatabase database = dbHelper.getWritableDatabase();
 
+            Cursor cursor = database.query(Contract.TABLE_ORDERS, null, null, null, null, null, null);
+
+            String order_number = "1";
+            String customer_number = "1";
+
+            if (cursor.moveToLast()) {
+
+                order_number = String.valueOf(cursor.getInt(cursor.getColumnIndex(Contract.OrdersEntry.ORDER_NUMBER)) + 1);
+                customer_number = String.valueOf(cursor.getInt(cursor.getColumnIndex(Contract.OrdersEntry.CUSTOMER_NUMBER)) + 1);
+            }
 
             ContentValues contentValues = new ContentValues();
-            contentValues.put(Contract.OrdersEntry.ORDER_NUMBER, Integer.valueOf(order_number));
             contentValues.put(Contract.OrdersEntry.ORDER_DATE, order_date);
             contentValues.put(Contract.OrdersEntry.REQUIRED_DATE, required_date);
             contentValues.put(Contract.OrdersEntry.SHIPPED_DATE, shipped_date);
             contentValues.put(Contract.OrdersEntry.STATUS, status);
             contentValues.put(Contract.OrdersEntry.COMMENTS, comment);
+            contentValues.put(Contract.OrdersEntry.ORDER_NUMBER, order_number);
             contentValues.put(Contract.OrdersEntry.CUSTOMER_NUMBER, customer_number);
 
             long code = database.insert(Contract.TABLE_ORDERS, null, contentValues);
 
-            if (code > 0)
-                Toast.makeText(this, getString(R.string.done), Toast.LENGTH_LONG).show();
-            else
+            if (code > 0) {
+
+
+                String quantity_ordered = "1";
+                int order_line_number = 1 + (int) (Math.random() * 10);
+
+                ContentValues contentValues2 = new ContentValues();
+                contentValues2.put(Contract.OrderDetailsEntry.ORDER_NUMBER, order_number);
+                contentValues2.put(Contract.OrderDetailsEntry.PRODUCT_CODE, product_code);
+                contentValues2.put(Contract.OrderDetailsEntry.QUANTITY_ORDERED, quantity_ordered);
+                contentValues2.put(Contract.OrderDetailsEntry.PRICE_EACH, price_each);
+                contentValues2.put(Contract.OrderDetailsEntry.ORDER_LINE_NUMBER, String.valueOf(order_line_number));
+
+
+                long code2 = database.insert(Contract.TABLE_ORDER_DETAILS, null, contentValues2);
+
+                if (code2 > 0){
+
+                    Toast.makeText(this, getString(R.string.done), Toast.LENGTH_LONG).show();
+                    new DatabaseTask().execute();
+
+                }
+
+            } else {
                 Log.d(ProductPriceZeroAnomaly.class.getSimpleName(), "insertNow: " + code);
+
+            }
 
             database.close();
 
@@ -239,8 +305,6 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
 
         if (item.getItemId() == android.R.id.home)
             finish();
-        else if (item.getItemId() == R.id.run_check)
-            new DatabaseTask().execute();
 
         return super.onOptionsItemSelected(item);
     }
@@ -255,7 +319,7 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
 
         }
 
-        protected Void doInBackground(Void...values) {
+        protected Void doInBackground(Void... values) {
 
             runCheck();
             return null;
@@ -272,7 +336,6 @@ public class ProductPriceZeroAnomaly extends AppCompatActivity implements View.O
         getMenuInflater().inflate(R.menu.order_details_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
 
 
 }

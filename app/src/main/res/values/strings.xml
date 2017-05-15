@@ -2,7 +2,7 @@
     <string name="app_name">Anotech</string>
     <string name="table_name">Administration</string>
     <string name="tables_intro">This provides information on the various tables present in the database.</string>
-    <string name="activity_happened">Outlier has occurred in the</string>
+    <string name="activity_happened">Outlier Type : </string>
     <string name="target">OrderDetails</string>
     <string name="anomaly_intro">Here you can select type of anomaly case you want to test.</string>
     <string name="order_number">orderNumber</string>
@@ -16,7 +16,7 @@
     <string name="table_columns">Table Columns</string>
     <string name="attribute_name">attributeName</string>
     <string name="attribute_type"><![CDATA[<type>]]></string>
-    <string name="done">Insert successful.</string>
+    <string name="done">Done.</string>
     <string name="run_test">RUN TEST</string>
     <string name="orders">Orders</string>
     <string name="order_date">orderDate</string>
@@ -93,8 +93,6 @@ CREATE TABLE `movie_transactions` (
     </string>
 
 
-
-
     <string name="create_employees">
 
       CREATE TABLE `employees` (
@@ -168,8 +166,8 @@ CREATE TABLE `movie_transactions` (
   `cardNumber` varchar(100) NOT NULL,
   `paymentDate` date NOT NULL,
   `amount` decimal(10,2) NOT NULL,
-  <!--PRIMARY KEY (`customerNumber`,`cardNumber`),-->
-  CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`customerNumber`) REFERENCES `customers` (`customerNumber`)
+        <!--PRIMARY KEY (`customerNumber`,`cardNumber`),-->
+        CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`customerNumber`) REFERENCES `customers` (`customerNumber`)
 );
 
     </string>
@@ -333,7 +331,7 @@ CREATE TABLE `movie_transactions` (
 (496, \'Kelly\'\'s Gift Shop\', \'Snowden\', \'Tony\', \'+64 9 5555500\', \'Arenales 1938 3\'\'A\'\'\', NULL, \'Auckland  \', NULL, NULL, \'New Zealand\', 1612, \'110000.00\');
         
     </string>
-    
+
     <string name="insert_employees">
 
         INSERT INTO `employees` (`employeeNumber`, `lastName`, `firstName`, `extension`, `email`, `officeCode`, `reportsTo`, `jobTitle`) VALUES
@@ -363,7 +361,7 @@ CREATE TABLE `movie_transactions` (
         
         
     </string>
-    
+
     <string name="insert_offices">
 
         INSERT INTO `offices` (`officeCode`, `city`, `phone`, `addressLine1`, `addressLine2`, `state`, `country`, `postalCode`, `territory`) VALUES
@@ -376,7 +374,7 @@ CREATE TABLE `movie_transactions` (
 (\'7\', \'London\', \'+44 20 7877 2041\', \'25 Old Broad Street\', \'Level 7\', NULL, \'UK\', \'EC2N 1HN\', \'EMEA\');
         
     </string>
-    
+
     <string name="insert_order_details">
         
         
@@ -1779,7 +1777,7 @@ CREATE TABLE `movie_transactions` (
 (10251, \'S10_2016\', 44, \'115.37\', 5);
         
     </string>
-    
+
     <string name="insert_order_details_two">
         
         INSERT INTO `orderdetails` (`orderNumber`, `productCode`, `quantityOrdered`, `priceEach`, `orderLineNumber`) VALUES
@@ -3181,7 +3179,7 @@ CREATE TABLE `movie_transactions` (
 (10399, \'S24_1578\', 57, \'104.81\', 3);
         
     </string>
-    
+
     <string name="insert_order_details_three">
         
         
@@ -3413,5 +3411,20 @@ CREATE TABLE `movie_transactions` (
     <string name="seat_number">seatNumber</string>
     <string name="movie">movie</string>
     <string name="audi">audi</string>
+    <string name="i_phone">Apple iPhone 7</string>
+    <string name="mi">Xiomi Mi Band 2</string>
+    <string name="price_apple">₹ 0</string>
+    <string name="price_mi">₹ 1999</string>
+    <string name="buy">BUY</string>
+
+    <string name="create_anomalies">
+        CREATE TABLE `anomalies` (
+  `type` varchar NOT NULL,
+  `file` varchar,
+  `reason` varchar,
+  `outlier` varchar
+);
+
+</string>
 
 </resources>
