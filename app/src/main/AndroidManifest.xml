@@ -22,10 +22,6 @@
         </activity>
 
         <activity
-            android:name=".screens.StructureViewer"
-            android:label="@string/structure_viewer" />
-
-        <activity
             android:name=".screens.ResultsActivity"
             android:label="" />
 
@@ -36,15 +32,6 @@
         <activity
             android:name=".test_classes.CreditCardFraud"
             android:label="@string/credit_card_fraud" />
-
-        <activity
-            android:name=".test_classes.WrongTransaction"
-            android:label="@string/wrong_transactions" />
-
-
-        <activity
-            android:name=".test_classes.WrongTicket"
-            android:label="@string/wrong_ticket" />
 
     </application>
 

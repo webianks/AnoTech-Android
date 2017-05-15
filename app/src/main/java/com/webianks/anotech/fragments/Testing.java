@@ -14,8 +14,6 @@ import com.webianks.anotech.R;
 import com.webianks.anotech.adapters.TestingAdapter;
 import com.webianks.anotech.test_classes.CreditCardFraud;
 import com.webianks.anotech.test_classes.ProductPriceZeroAnomaly;
-import com.webianks.anotech.test_classes.WrongTicket;
-import com.webianks.anotech.test_classes.WrongTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,9 +54,6 @@ public class Testing extends Fragment implements TestingAdapter.ItemClickListene
         List<String> testingList = new ArrayList<>();
         testingList.add("Product Price Zero Anomaly");
         testingList.add("Credit Card Fraud");
-        testingList.add("Wrong Transaction Anomaly");
-        testingList.add("Wrong Ticket Booked");
-
 
         TestingAdapter adapter = new TestingAdapter(getActivity(), testingList);
         testingRecyclerView.setAdapter(adapter);
@@ -74,11 +69,5 @@ public class Testing extends Fragment implements TestingAdapter.ItemClickListene
 
         else if(position == 1)
             startActivity(new Intent(getActivity(), CreditCardFraud.class));
-
-        else if(position == 2)
-            startActivity(new Intent(getActivity(), WrongTransaction.class));
-
-        else if(position == 3)
-            startActivity(new Intent(getActivity(), WrongTicket.class));
     }
 }
