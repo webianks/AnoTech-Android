@@ -16,7 +16,7 @@
     <string name="table_columns">Table Columns</string>
     <string name="attribute_name">attributeName</string>
     <string name="attribute_type"><![CDATA[<type>]]></string>
-    <string name="done">Done.</string>
+    <string name="done">Done</string>
     <string name="run_test">RUN TEST</string>
     <string name="orders">Orders</string>
     <string name="order_date">orderDate</string>
@@ -3430,5 +3430,10 @@ CREATE TABLE `movie_transactions` (
     <string name="product_name">product_name </string>
     <string name="with_bill"> with bill of </string>
     <string name="bill">₹500</string>
+    <string name="card_details">Please provide card details.</string>
+    <string name="p_card_number">Card Number</string>
+    <string name="name_on_card">Name On Card</string>
+    <string name="atm_pin">ATM PIN</string>
+    <string name="cvv">CVV</string>
 
 </resources>

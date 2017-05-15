@@ -3,19 +3,20 @@ package com.webianks.anotech.test_classes;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.webianks.anotech.R;
@@ -23,15 +24,12 @@ import com.webianks.anotech.data.TransactionData;
 import com.webianks.anotech.data.TransactionInMonth;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;
-import com.webianks.anotech.database.Projections;
-import com.webianks.anotech.screens.ResultsActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by R Ankit on 27-03-2017.
@@ -44,6 +42,13 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
     private ProgressDialog progressDialog;
     private boolean found;
     private StringBuilder outlierText;
+    private TextView productNameTV;
+    private TextView billTV;
+    private String[] productNames = {"iPhone 7", "Mi Band 2", "Cool Chino", "White Tie", "XBox 360", "Sandisk SD"};
+    private String[] bill = {"53000", "1999", "799", "150", "20000", "1700"};
+    private EditText cardNumberET;
+    private Button insertBT;
+    private int number;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +64,18 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        billTV = (TextView) findViewById(R.id.bill);
+        productNameTV = (TextView) findViewById(R.id.product_name);
+        cardNumberET = (EditText) findViewById(R.id.card_number);
+        insertBT = (Button) findViewById(R.id.insert);
+
+        insertBT.setOnClickListener(this);
+
+
+        number = 1 + (int) (Math.random() * productNames.length);
+
+        productNameTV.setText(productNames[number - 1]);
+        billTV.setText(bill[number - 1]);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Anomaly Test");
@@ -174,7 +191,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
 
         int normalCount = 0;
-        
+
         for (int i = 0; i < transactionInMonthsList.size(); i++) {
 
             Log.d(TAG, "Final occurance values " + transactionInMonthsList.get(i).getCardNumber() + " " +
@@ -216,7 +233,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
                             + " with payments as : " + transactionInMonthsList.get(i).getCount().get(j));
 
                     outlierText.append("Abnormal count of payments by card : " + transactionInMonthsList.get(i).getCardNumber()
-                            + " with payments as : " + transactionInMonthsList.get(i).getCount().get(j)+"\n");
+                            + " with payments as : " + transactionInMonthsList.get(i).getCount().get(j) + "\n");
                 }
             }
 
@@ -224,13 +241,19 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
         progressDialog.dismiss();
 
-        if (found){
+        if (found) {
 
-            Intent intent = new Intent(this, ResultsActivity.class);
-            intent.putExtra("type", "credit_card");
-            intent.putExtra("reason", getString(R.string.credit_fraud_reason)+normalCount);
-            intent.putExtra("outlier", outlierText.toString());
-            startActivity(intent);
+            AnotechDBHelper dbHelper = new AnotechDBHelper(this);
+            SQLiteDatabase databaseWritable = dbHelper.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(Contract.AnomalyEntry.TYPE, "credit_card");
+            contentValues.put(Contract.AnomalyEntry.FILE, "none");
+            contentValues.put(Contract.AnomalyEntry.REASON, getString(R.string.credit_fraud_reason) + normalCount);
+            contentValues.put(Contract.AnomalyEntry.OUTLIER, outlierText.toString());
+
+            long code = databaseWritable.insert(Contract.TABLE_ANOMALY, null, contentValues);
+
         }
 
     }
@@ -260,35 +283,47 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
     private void insertNow() {
 
-        String card_number = "";
-        String amount = "";
-        String payment_date = "";
-        String customer_number = "";
+        String card_numberET = cardNumberET.getText().toString();
+        String card_number;
 
+        if (card_numberET.trim().length() == 13) {
+            card_number = card_numberET.substring(card_numberET.length() - 5);
+        } else {
+            Toast.makeText(this, "Please enter valid card number", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        if (card_number.trim().length() > 0 &&
-                amount.trim().length() > 0 &&
-                payment_date.trim().length() > 0 &&
-                customer_number.trim().length() > 0) {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String payment_date = df.format(c.getTime());
+
+        if (card_number.trim().length() > 0) {
 
 
             AnotechDBHelper dbHelper = new AnotechDBHelper(this);
             SQLiteDatabase database = dbHelper.getWritableDatabase();
 
+            Cursor cursor = database.query(Contract.TABLE_PAYMENTS, null, null, null, null, null, null);
+
+            String customer_number = "1";
+
+            if (cursor.moveToLast()) {
+                customer_number = String.valueOf(cursor.getInt(cursor.getColumnIndex(Contract.PaymentsEntry.CUSTOMER_NUMBER)) + 1);
+            }
 
             ContentValues contentValues = new ContentValues();
             contentValues.put(Contract.PaymentsEntry.CUSTOMER_NUMBER, Integer.valueOf(customer_number));
             contentValues.put(Contract.PaymentsEntry.CARD_NUMBER, Integer.valueOf(card_number));
             contentValues.put(Contract.PaymentsEntry.PAYMENT_DATE, payment_date);
-            contentValues.put(Contract.PaymentsEntry.AMOUNT, Integer.valueOf(amount));
-
+            contentValues.put(Contract.PaymentsEntry.AMOUNT, bill[number - 1]);
 
             long code = database.insert(Contract.TABLE_PAYMENTS, null, contentValues);
 
 
-            if (code > 0)
+            if (code > 0) {
+                new DatabaseTask().execute();
                 Toast.makeText(this, getString(R.string.done), Toast.LENGTH_LONG).show();
-            else
+            } else
                 Log.d(CreditCardFraud.class.getSimpleName(), "insertNow: " + code);
 
             database.close();
@@ -302,8 +337,6 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
 
         if (item.getItemId() == android.R.id.home)
             finish();
-        else if (item.getItemId() == R.id.run_check)
-            new DatabaseTask().execute();
 
         return super.onOptionsItemSelected(item);
     }

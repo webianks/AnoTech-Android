@@ -63,43 +63,6 @@ public class Contract {
 
 
 
-    public static final class TransactionEntry implements BaseColumns {
-
-        public static final String PNR_NUMBER = "pnr_number";
-        public static final String AMOUNT = "amount";
-        public static final String TRANSACTION_NUMBER = "transaction_number";
-        public static final String MODE = "payment_mode";
-
-    }
-
-    public static final class TicketEntry implements BaseColumns {
-
-        public static final String PNR_NUMBER = "pnr_number";
-        public static final String TRAIN_NUMBER = "train_number";
-        public static final String TRANSACTION_NUMBER = "transaction_number";
-        public static final String FROM = "from";
-        public static final String TO = "to";
-
-    }
-
-    public static final class MovieTransactionEntry implements BaseColumns {
-
-        public static final String TICKET_NUMBER = "ticket_number";
-        public static final String AMOUNT = "amount";
-        public static final String TRANSACTION_NUMBER = "transaction_number";
-        public static final String MODE = "payment_mode";
-
-    }
-
-    public static final class MovieTicketEntry implements BaseColumns {
-
-        public static final String TICKET_NUMBER = "ticket_number";
-        public static final String SEAT_NUMBER = "seat_number";
-        public static final String MOVIE = "movie";
-        public static final String AUDI = "audi";
-
-    }
-
     public class AnomalyEntry implements BaseColumns{
 
         public static final String TYPE = "type";

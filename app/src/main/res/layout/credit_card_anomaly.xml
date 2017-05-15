@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
@@ -32,15 +33,20 @@
                     android:id="@+id/complete_order"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="16sp"
                     android:text="@string/complete_order" />
 
                 <TextView
                     android:id="@+id/product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/complete_order"
                     android:text="@string/product_name"
-                    android:textColor="@color/colorAccent" />
+                    android:textSize="16sp"
+                    android:textColor="@color/colorAccent"
+                    android:layout_alignBaseline="@+id/with_bill"
+                    android:layout_alignBottom="@+id/with_bill"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
 
                 <TextView
@@ -50,6 +56,7 @@
                     android:layout_below="@id/complete_order"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
+                    android:textSize="16sp"
                     android:layout_toRightOf="@id/product_name"
                     android:text="@string/with_bill" />
 
@@ -60,10 +67,90 @@
                     android:layout_below="@id/complete_order"
                     android:layout_toRightOf="@id/with_bill"
                     android:text="@string/bill"
+                    android:textSize="16sp"
                     android:textColor="@color/colorAccent" />
 
 
             </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/card_details"
+                />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/white"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="16dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/card_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/p_card_number"
+                        android:inputType="number"
+                        android:maxLength="13"
+                        />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/name_on_card"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3"
+                        >
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:hint="@string/atm_pin"
+                            android:inputType="number"
+                            android:maxLength="4"
+                            />
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="@string/cvv"
+                            android:inputType="number"
+                            android:maxLength="3"
+                            />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/insert"
+                        android:theme="@style/ButtonTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/done"
+                        />
+
+                </LinearLayout>
+
+
+
+            </android.support.v7.widget.CardView>
 
         </LinearLayout>
 
