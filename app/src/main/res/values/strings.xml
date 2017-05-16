@@ -3443,5 +3443,8 @@ CREATE TABLE `movie_transactions` (
     <string name="memory_requirement_reason">When % MEMORY_USED shows sudden increase in very less expected time , in that case server may run out of memory.</string>
     <string name="data_explorer">Explore Database</string>
     <string name="key_db_link">KEY_DB_LINK</string>
+    <string name="product_price_zero_explain">Here the product price has been made zero accidentally and user is allowed to buy this product. This behaviour is checked every time we buy product and the anomalies if detected can be seen in Anomalies Tab in home page.</string>
+    <string name="done_new">Done</string>
+    <string name="credit_card_explanation">Here if the same card usage doesn\'t follow the older pattern/behaviour it can be detected and seen in the Anomalies Tab of home page.</string>
 
 </resources>
