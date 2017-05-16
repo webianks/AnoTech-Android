@@ -14,6 +14,7 @@ import com.webianks.anotech.R;
 import com.webianks.anotech.adapters.TestingAdapter;
 import com.webianks.anotech.test_classes.AdditionalServer;
 import com.webianks.anotech.test_classes.CreditCardFraud;
+import com.webianks.anotech.test_classes.MemoryRequirement;
 import com.webianks.anotech.test_classes.ProductPriceZeroAnomaly;
 
 import java.util.ArrayList;
@@ -56,6 +57,7 @@ public class Testing extends Fragment implements TestingAdapter.ItemClickListene
         testingList.add("Product Price Zero Anomaly");
         testingList.add("Credit Card Fraud");
         testingList.add("Additional Server Requirement");
+        testingList.add("Memory Requirement");
 
         TestingAdapter adapter = new TestingAdapter(getActivity(), testingList);
         testingRecyclerView.setAdapter(adapter);
@@ -74,6 +76,9 @@ public class Testing extends Fragment implements TestingAdapter.ItemClickListene
 
         else if(position == 2)
             startActivity(new Intent(getActivity(), AdditionalServer.class));
+
+        else if(position == 3)
+            startActivity(new Intent(getActivity(), MemoryRequirement.class));
 
     }
 }

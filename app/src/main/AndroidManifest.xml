@@ -37,6 +37,10 @@
             android:name=".test_classes.AdditionalServer"
             android:label="@string/additional_server" />
 
+        <activity
+            android:name=".test_classes.MemoryRequirement"
+            android:label="@string/memory_requirement" />
+
     </application>
 
 </manifest>
