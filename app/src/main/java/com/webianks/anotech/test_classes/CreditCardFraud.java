@@ -121,7 +121,7 @@ public class CreditCardFraud extends AppCompatActivity implements View.OnClickLi
             gc.set(Calendar.MONTH, Integer.valueOf(splittedPaymentDate[1]) - 1);
             gc.set(Calendar.YEAR, Integer.valueOf(splittedPaymentDate[0]));
 
-            if (Integer.valueOf(splittedPaymentDate[0]) == 2004) {
+            if (Integer.valueOf(splittedPaymentDate[0]) == 2017) {
 
                 int DAY_OF_YEAR = gc.get(Calendar.DAY_OF_YEAR);
                 boolean matched = false;
