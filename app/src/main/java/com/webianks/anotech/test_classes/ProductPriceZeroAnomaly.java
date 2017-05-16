@@ -19,7 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.webianks.anotech.FileUtils;
+import com.webianks.anotech.utils.FileUtils;
 import com.webianks.anotech.R;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.database.Contract;

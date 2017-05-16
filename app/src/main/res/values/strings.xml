@@ -3435,5 +3435,9 @@ CREATE TABLE `movie_transactions` (
     <string name="name_on_card">Name On Card</string>
     <string name="atm_pin">ATM PIN</string>
     <string name="cvv">CVV</string>
+    <string name="no_anomalies">No anomalies at this point of time.</string>
+    <string name="additional_server">Additional Server</string>
+    <string name="logic">Aditional Servers are required when the % utilization of the various stats like CPU_USAGE , MEMORY_USAGE are found high.</string>
+    <string name="analyze">Analyze</string>
 
 </resources>

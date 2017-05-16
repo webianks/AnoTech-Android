@@ -33,6 +33,10 @@
             android:name=".test_classes.CreditCardFraud"
             android:label="@string/credit_card_fraud" />
 
+        <activity
+            android:name=".test_classes.AdditionalServer"
+            android:label="@string/additional_server" />
+
     </application>
 
 </manifest>

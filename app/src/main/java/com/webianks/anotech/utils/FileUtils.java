@@ -1,4 +1,4 @@
-package com.webianks.anotech;
+package com.webianks.anotech.utils;
 
 import android.os.Environment;
 import android.text.format.DateFormat;

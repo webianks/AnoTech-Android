@@ -8,19 +8,11 @@ import android.provider.BaseColumns;
 
 public class Contract {
 
-    public static final String TABLE_CUSTOMERS = "customers";
-    public static final String TABLE_EMPLOYEES = "employees";
-    public static final String TABLE_OFFICES = "offices";
     public static final String TABLE_ORDER_DETAILS = "orderdetails";
     public static final String TABLE_ORDERS = "orders";
     public static final String TABLE_PAYMENTS = "payments";
     public static final String TABLE_ANOMALY = "anomalies";
-    public static final String TABLE_PRODUCT_LINES = "productlines";
-    public static final String TABLE_PRODUCTS = "products";
-    public static final String TABLE_TRANSACTIONS = "transactions";
-    public static final String TABLE_TICKETS = "tickets";
-    public static final String TABLE_MOVIE_TICKETS = "movie_tickets";
-    public static final String TABLE_MOIVE_TRANSACTIONS = "movie_transactions";
+    public static final String TABLE_SYSTEM_LOG = "system_log";
 
 
     public static final class OrderDetailsEntry implements BaseColumns {
@@ -69,6 +61,18 @@ public class Contract {
         public static final String FILE = "file";
         public static final String REASON = "reason";
         public static final String OUTLIER = "outlier";
+
+    }
+
+
+    public class SystemEntry implements BaseColumns{
+
+        public static final String TIME = "time";
+        public static final String PROCESSOR = "processor";
+        public static final String NET_TRAFFIC = "net_traffic";
+        public static final String MEMORY_USED = "memory_used";
+        public static final String IDLE_TIME = "idle_time";
+        public static final String PERFORMANCE = "performance";
 
     }
 }

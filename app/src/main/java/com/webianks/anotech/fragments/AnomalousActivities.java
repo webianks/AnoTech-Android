@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.webianks.anotech.R;
 import com.webianks.anotech.adapters.AnomaliesAdapter;
@@ -29,6 +30,7 @@ import java.util.List;
 public class AnomalousActivities extends Fragment implements AnomaliesAdapter.ItemClickListener {
 
     private RecyclerView recyclerview;
+    private TextView noAnomalies;
 
     public static AnomalousActivities newInstance() {
 
@@ -48,6 +50,8 @@ public class AnomalousActivities extends Fragment implements AnomaliesAdapter.It
         recyclerview = (RecyclerView) view.findViewById(R.id.recyclerview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerview.setLayoutManager(linearLayoutManager);
+
+        noAnomalies = (TextView) view.findViewById(R.id.noAnomalies);
 
         return view;
     }
@@ -95,9 +99,14 @@ public class AnomalousActivities extends Fragment implements AnomaliesAdapter.It
 
     private void setAdapter(List<Anomaly> anomalies) {
 
-        AnomaliesAdapter anomaliesAdapter = new AnomaliesAdapter(getActivity(), anomalies);
-        anomaliesAdapter.setItemClickListener(this);
-        recyclerview.setAdapter(anomaliesAdapter);
+        if(anomalies!=null && anomalies.size()>0){
+            AnomaliesAdapter anomaliesAdapter = new AnomaliesAdapter(getActivity(), anomalies);
+            anomaliesAdapter.setItemClickListener(this);
+            recyclerview.setAdapter(anomaliesAdapter);
+            noAnomalies.setVisibility(View.GONE);
+        }else
+            noAnomalies.setVisibility(View.VISIBLE);
+
     }
 
     @Override
