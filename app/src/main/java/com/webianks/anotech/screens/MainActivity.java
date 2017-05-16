@@ -1,17 +1,21 @@
 package com.webianks.anotech.screens;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.webianks.anotech.R;
 import com.webianks.anotech.adapters.ViewPagerAdapter;
 import com.webianks.anotech.database.AnotechDBHelper;
 import com.webianks.anotech.fragments.AnomalousActivities;
 import com.webianks.anotech.fragments.Testing;
+import com.webianks.anotech.utils.LogUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +34,15 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         fillDatabase();
+
+        StringBuilder allLogs = LogUtils.readLogs();
+        String result = allLogs.substring(allLogs.indexOf("Open ") + 4, allLogs.indexOf(" in your browser"));
+        Log.d("webi",result);
+
+        SharedPreferences sharedPref = getSharedPreferences("ANO_PREF",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(getString(R.string.key_db_link), result);
+        editor.apply();
 
     }
 

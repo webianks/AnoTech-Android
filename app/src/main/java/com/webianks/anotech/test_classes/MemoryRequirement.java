@@ -86,7 +86,7 @@ public class MemoryRequirement extends AppCompatActivity{
             Toast.makeText(this,"No additional memory is needed.",Toast.LENGTH_SHORT).show();
         else{
 
-            Toast.makeText(this,"Analysis done.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Analysis done. You can find the results in Anomalies Tab.",Toast.LENGTH_LONG).show();
 
             SQLiteDatabase databaseWritable = dbHelper.getWritableDatabase();
 

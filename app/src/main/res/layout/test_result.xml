@@ -47,6 +47,15 @@
                 android:layout_marginTop="16dp"
                 android:text="Outliers" />
 
+            <Button
+                android:theme="@style/ButtonTheme"
+                android:layout_width="match_parent"
+                android:layout_margin="16dp"
+                android:layout_height="wrap_content"
+                android:text="@string/data_explorer"
+                android:onClick="onClick"
+                />
+
         </LinearLayout>
 
     </LinearLayout>

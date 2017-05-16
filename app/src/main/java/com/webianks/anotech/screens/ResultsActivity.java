@@ -1,8 +1,13 @@
 package com.webianks.anotech.screens;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -14,8 +19,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
 import com.webianks.anotech.R;
-
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -119,5 +122,17 @@ public class ResultsActivity extends AppCompatActivity {
             finish();
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClick(View view) {
+
+        SharedPreferences sharedPref = getSharedPreferences("ANO_PREF",Context.MODE_PRIVATE);
+        String link = sharedPref.getString(getResources().getString(R.string.key_db_link),"http://www.google.com");
+
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(this, Uri.parse(link.trim()));
+
     }
 }

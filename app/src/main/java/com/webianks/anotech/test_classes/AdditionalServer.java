@@ -85,7 +85,7 @@ public class AdditionalServer extends AppCompatActivity {
             Toast.makeText(this,"No server crash condition found.",Toast.LENGTH_SHORT).show();
         else{
 
-            Toast.makeText(this,"Analysis done.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Analysis done. You can find the results in Anomalies Tab.",Toast.LENGTH_LONG).show();
 
             SQLiteDatabase databaseWritable = dbHelper.getWritableDatabase();
 

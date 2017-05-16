@@ -16,7 +16,7 @@
     <string name="table_columns">Table Columns</string>
     <string name="attribute_name">attributeName</string>
     <string name="attribute_type"><![CDATA[<type>]]></string>
-    <string name="done">Done</string>
+    <string name="done">Done! You can find the results in Anomalies Tab.</string>
     <string name="run_test">RUN TEST</string>
     <string name="orders">Orders</string>
     <string name="order_date">orderDate</string>
@@ -3441,5 +3441,7 @@ CREATE TABLE `movie_transactions` (
     <string name="analyze">Analyze</string>
     <string name="memory_requirement">Memory Requirement</string>
     <string name="memory_requirement_reason">When % MEMORY_USED shows sudden increase in very less expected time , in that case server may run out of memory.</string>
+    <string name="data_explorer">Explore Database</string>
+    <string name="key_db_link">KEY_DB_LINK</string>
 
 </resources>
